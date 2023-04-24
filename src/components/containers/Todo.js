@@ -17,10 +17,32 @@ function Todo() {
       )
     )
   }
+  const editTodo = (id, text) => {
+    setTodos((prev) =>
+      prev.map((todo) => (todo.id === id ? { ...todo, text } : todo))
+    )
+  }
+  const updateEditingStatus = (id, newStatus) => {
+    setTodos((prev) =>
+      prev.map((todo) => {
+        if (todo.id === id) {
+          return { ...todo, editing: newStatus }
+        }
+
+        // in case something is editing, we want to make sure that it's not anymore
+        if (todo.editing) {
+          return { ...todo, editing: false }
+        }
+
+        return todo
+      })
+    )
+  }
+  const isEditing = todos.some((todo) => todo.editing)
 
   return (
     <div>
-      <TodoTop addTodo={addTodo} />
+      <TodoTop isEditing={isEditing} addTodo={addTodo} />
       {todos.map((todo) => (
         <TodoItem
           key={todo.id}
@@ -29,6 +51,9 @@ function Todo() {
           deleteTodo={deleteTodo}
           archived={todo.archived}
           toggleArchiveStatus={toggleArchiveStatus}
+          editing={todo.editing}
+          editTodo={editTodo}
+          updateEditingStatus={updateEditingStatus}
         />
       ))}
     </div>
