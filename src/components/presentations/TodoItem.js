@@ -23,7 +23,7 @@ function TodoItem({
 
   return (
     <div style={{ display: 'flex', width: '100%' }}>
-      {!editing && <div>{text}</div>}
+      {!editing && <div style={{ opacity: archived ? '0.3' : '' }}>{text}</div>}
       {editing && <input value={editingText} onChange={handleChange} />}
 
       {!archived && (
