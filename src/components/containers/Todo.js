@@ -10,6 +10,13 @@ function Todo() {
   const deleteTodo = (id) => {
     setTodos((prev) => prev.filter((todo) => todo.id !== id))
   }
+  const toggleArchiveStatus = (id) => {
+    setTodos((prev) =>
+      prev.map((todo) =>
+        todo.id === id ? { ...todo, archived: !todo.archived } : todo
+      )
+    )
+  }
 
   return (
     <div>
@@ -20,6 +27,8 @@ function Todo() {
           id={todo.id}
           text={todo.text}
           deleteTodo={deleteTodo}
+          archived={todo.archived}
+          toggleArchiveStatus={toggleArchiveStatus}
         />
       ))}
     </div>
