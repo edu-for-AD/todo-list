@@ -13,7 +13,7 @@ function TodoTop({ addTodo }) {
 
       <button
         onClick={() => {
-          addTodo({ id: uuidv1(), text: todo })
+          addTodo({ id: uuidv1(), text: todo, acrhived: false })
           setTodo('')
         }}
       >
