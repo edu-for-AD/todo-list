@@ -2,18 +2,23 @@ import { useState,useEffect } from "react";
 
 
 function TodoItem({ todo,editTodo,archiveTodo, deleteTodo }) {
-  const [editTodoText, setEditTodoText] = useState(todo.text);   
+  const [editTodoText, setEditTodoText] = useState(todo.text);    //Edit  - 추가
 
 
-  const InputchangHandle = (e)=>{
-    setEditTodoText(e.target.value);
+  useEffect(() => {
     todo.text=editTodoText;
+  }, [editTodoText]);
+
+  const InputchangHandle = (e)=>{                                 //Edit  - 추가
+    setEditTodoText(e.target.value);
+   
   }
 
   return (
     <div style={{ display: "flex", width: "100%" }}>
       
       <div>
+      {/* //Edit  - 추가 */}
         {
          (!todo.isedit) ? (<span>{todo.text}</span>) : <input value={editTodoText}  onChange={InputchangHandle} />
         }
