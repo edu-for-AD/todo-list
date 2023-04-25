@@ -4,6 +4,7 @@ let index = 0;
 
 function TodoTop({ addTodo }) {
   const [todo, setTodo] = useState("");
+  
   const handleChange = (event) => {
     setTodo(event.target.value);
   };
