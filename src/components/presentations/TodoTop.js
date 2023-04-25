@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-let index = 0;
+let index = 1;
 
 function TodoTop({ addTodo }) {
   const [todo, setTodo] = useState("");
@@ -10,6 +10,7 @@ function TodoTop({ addTodo }) {
 
   return (
     <div style={{ display: "flex", width: "100%" }}>
+      {/* input의 value는 꼭 필요한가? */}
       <input type="text" value={todo} onChange={handleChange} />
 
       <button
