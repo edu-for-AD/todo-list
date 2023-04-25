@@ -1,3 +1,4 @@
+
 import { useState } from 'react'
 import { v1 as uuidv1 } from 'uuid'
 
@@ -9,6 +10,7 @@ function TodoTop({ addTodo }) {
 
   return (
     <div style={{ display: 'flex', width: '100%' }}>
+
       <input type="text" value={todo} onChange={handleChange} />
 
       <button
