@@ -1,6 +1,5 @@
 import { useState } from "react";
-
-let index = 0;
+import { v1 as uuidv1 } from "uuid";
 
 function TodoTop({ addTodo }) {
   const [todo, setTodo] = useState("");
@@ -14,7 +13,7 @@ function TodoTop({ addTodo }) {
 
       <button
         onClick={() => {
-          addTodo({ id: index++, text: todo });
+          addTodo({ id: uuidv1(), text: todo });
           setTodo("");
         }}
       >
