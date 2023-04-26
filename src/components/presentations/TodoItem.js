@@ -7,7 +7,9 @@ function TodoItem({ id, text, deleteTodo }) {
   }
   return (
     <div style={{ display: 'flex', width: '100%' }}>
-      <div>{text}</div>
+      <div style={archive ? { opacity: '0.3' } : null}>{text}</div>
+      <button style={archive ? null : { display: 'none' }}>unarchive</button>
+
       <button
         style={archive ? null : { display: 'none' }}
         onClick={() => {
