@@ -38,6 +38,13 @@ function Todo() {
       })
     )
   }
+  const updateActivateStatus = (id, newStatus) => {
+    setTodos((prev) =>
+      prev.map((todo) =>
+        todo.id === id ? { ...todo, activated: newStatus } : todo
+      )
+    )
+  }
   const isEditing = todos.some((todo) => todo.isEditing)
 
   return (
@@ -54,6 +61,8 @@ function Todo() {
           isEditing={todo.isEditing}
           editTodo={editTodo}
           updateEditingStatus={updateEditingStatus}
+          activated={todo.activated}
+          updateActivateStatus={updateActivateStatus}
         />
       ))}
     </div>

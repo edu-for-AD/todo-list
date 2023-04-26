@@ -23,6 +23,7 @@ function TodoTop({ isEditing, addTodo }) {
             id: uuidv1(),
             text: todo,
             archived: false,
+            activated: true,
             isEditing: false
           })
           setTodo('')

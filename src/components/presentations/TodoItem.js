@@ -8,7 +8,9 @@ function TodoItem({
   toggleArchiveStatus,
   isEditing,
   editTodo,
-  updateEditingStatus
+  updateEditingStatus,
+  activated,
+  updateActivateStatus
 }) {
   const [editingText, setEditingText] = useState(text)
   const handleChange = (event) => {
@@ -35,6 +37,9 @@ function TodoItem({
       }
     }
   }
+  const handleSelectCheckbox = (event) => {
+    updateActivateStatus(id, !event.target.checked)
+  }
 
   useEffect(() => {
     if (!isEditing) {
@@ -44,8 +49,20 @@ function TodoItem({
 
   return (
     <div style={{ display: 'flex', width: '100%' }}>
+      <input
+        type="checkbox"
+        checked={!activated}
+        onChange={handleSelectCheckbox}
+      />
       {!isEditing && (
-        <div style={{ opacity: archived ? '0.3' : '' }}>{text}</div>
+        <div
+          style={{
+            opacity: archived ? '0.3' : '',
+            textDecoration: !activated ? 'line-through' : ''
+          }}
+        >
+          {text}
+        </div>
       )}
       {isEditing && (
         <input
