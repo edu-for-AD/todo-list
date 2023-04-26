@@ -14,6 +14,27 @@ function TodoItem({
   const handleChange = (event) => {
     setEditingText(event.target.value)
   }
+  const handleKeyDown = (event) => {
+    switch (event.key) {
+      case 'Enter': {
+        updateEditingStatus(id, !isEditing)
+
+        editTodo(id, editingText)
+
+        break
+      }
+
+      case 'Escape': {
+        updateEditingStatus(id, false)
+
+        break
+      }
+
+      default: {
+        break
+      }
+    }
+  }
 
   useEffect(() => {
     if (!isEditing) {
@@ -26,7 +47,13 @@ function TodoItem({
       {!isEditing && (
         <div style={{ opacity: archived ? '0.3' : '' }}>{text}</div>
       )}
-      {isEditing && <input value={editingText} onChange={handleChange} />}
+      {isEditing && (
+        <input
+          value={editingText}
+          onChange={handleChange}
+          onKeyDown={handleKeyDown}
+        />
+      )}
 
       {!archived && (
         <button
