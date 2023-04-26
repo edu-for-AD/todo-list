@@ -3,12 +3,17 @@ import { useState } from 'react'
 function TodoItem({ id, text, deleteTodo }) {
   const [archive, setArchive] = useState(false)
   const handleOnClickArchive = () => {
-    setArchive(true)
+    setArchive((current) => !current)
   }
   return (
     <div style={{ display: 'flex', width: '100%' }}>
       <div style={archive ? { opacity: '0.3' } : null}>{text}</div>
-      <button style={archive ? null : { display: 'none' }}>unarchive</button>
+      <button
+        style={archive ? null : { display: 'none' }}
+        onClick={handleOnClickArchive}
+      >
+        unarchive
+      </button>
 
       <button
         style={archive ? null : { display: 'none' }}
