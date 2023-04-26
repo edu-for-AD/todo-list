@@ -19,7 +19,12 @@ function TodoTop({ isEditing, addTodo }) {
       <button
         disabled={isEditing}
         onClick={() => {
-          addTodo({ id: uuidv1(), text: todo, acrhived: false })
+          addTodo({
+            id: uuidv1(),
+            text: todo,
+            acrhived: false,
+            isEditing: false
+          })
           setTodo('')
         }}
       >
