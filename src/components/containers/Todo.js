@@ -9,6 +9,11 @@ function Todo() {
   }
   const deleteTodo = (id) => {
     setTodos((prev) => prev.filter((todo) => todo.id !== id))
+    console.log('delete')
+  }
+  const changeTodo = (id) => {
+    console.log('changeTodo')
+    todos.map((todo) => (todo.id === id ? console.log(todo.text) : null))
   }
 
   return (
@@ -20,6 +25,7 @@ function Todo() {
           id={todo.id}
           text={todo.text}
           deleteTodo={deleteTodo}
+          changeTodo={changeTodo}
         />
       ))}
     </div>
