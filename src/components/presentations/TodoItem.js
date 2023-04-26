@@ -6,7 +6,7 @@ function TodoItem({
   deleteTodo,
   archived,
   toggleArchiveStatus,
-  editing,
+  isEditing,
   editTodo,
   updateEditingStatus
 }) {
@@ -16,30 +16,32 @@ function TodoItem({
   }
 
   useEffect(() => {
-    if (!editing) {
+    if (!isEditing) {
       setEditingText(text)
     }
-  }, [editing, text])
+  }, [isEditing, text])
 
   return (
     <div style={{ display: 'flex', width: '100%' }}>
-      {!editing && <div style={{ opacity: archived ? '0.3' : '' }}>{text}</div>}
-      {editing && <input value={editingText} onChange={handleChange} />}
+      {!isEditing && (
+        <div style={{ opacity: archived ? '0.3' : '' }}>{text}</div>
+      )}
+      {isEditing && <input value={editingText} onChange={handleChange} />}
 
       {!archived && (
         <button
           onClick={() => {
-            updateEditingStatus(id, !editing)
+            updateEditingStatus(id, !isEditing)
 
-            if (editing) {
+            if (isEditing) {
               editTodo(id, editingText)
             }
           }}
         >
-          {editing ? 'confirm' : 'edit'}
+          {isEditing ? 'confirm' : 'edit'}
         </button>
       )}
-      {!archived && editing && (
+      {!archived && isEditing && (
         <button
           onClick={() => {
             updateEditingStatus(id, false)
@@ -48,7 +50,7 @@ function TodoItem({
           cancel
         </button>
       )}
-      {!editing && (
+      {!isEditing && (
         <button
           onClick={() => {
             toggleArchiveStatus(id, editingText)
@@ -57,7 +59,7 @@ function TodoItem({
           {archived ? 'unarchive' : 'archive'}
         </button>
       )}
-      {!editing && archived && (
+      {!isEditing && archived && (
         <button
           onClick={() => {
             deleteTodo(id)
