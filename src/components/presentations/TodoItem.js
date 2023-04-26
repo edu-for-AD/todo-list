@@ -20,67 +20,37 @@ function TodoItem({ id, text, deleteTodo, changeTodo }) {
   const handleChange = (event) => {
     setTodo(event.target.value)
   }
+
   return (
     <div style={{ display: 'flex', width: '100%' }}>
-      <div
-        style={
-          archive
-            ? { opacity: '0.3' }
-            : null || edit
-            ? { display: 'none' }
-            : null
-        }
-      >
-        {text}
-      </div>
+      {!edit ? (
+        <div style={{ opacity: archive ? '0.3' : '' }}>{text}</div>
+      ) : (
+        <input type="text" value={todo} onChange={handleChange} />
+      )}
 
-      <input
-        type="text"
-        value={todo}
-        style={edit ? null : { display: 'none' }}
-        onChange={handleChange}
-      />
+      {!archive && <button onClick={handleOnClickEdit}>edit</button>}
 
-      <button
-        style={archive ? null : { display: 'none' }}
-        onClick={handleOnClickArchive}
-      >
-        unarchive
+      <button onClick={handleOnClickArchive}>
+        {!archive ? 'archive' : 'unarchive'}
       </button>
 
-      <button
-        style={archive ? null : { display: 'none' }}
-        onClick={() => {
-          deleteTodo(id)
-        }}
-      >
-        delete
-      </button>
-      <button
-        style={archive || edit ? { display: 'none' } : null}
-        onClick={handleOnClickEdit}
-      >
-        edit
-      </button>
-      <button
-        style={edit ? null : { display: 'none' }}
-        onClick={handleOnConfirm}
-      >
-        confirm
-      </button>
-      <button
-        style={edit ? null : { display: 'none' }}
-        onClick={handleOnClickEdit}
-      >
-        cancel
-      </button>
+      {archive && (
+        <button
+          onClick={() => {
+            deleteTodo(id)
+          }}
+        >
+          delete
+        </button>
+      )}
 
-      <button
-        style={archive || edit ? { display: 'none' } : null}
-        onClick={handleOnClickArchive}
-      >
-        archive
-      </button>
+      {edit && (
+        <>
+          <button onClick={handleOnConfirm}>confirm</button>
+          <button onClick={handleOnClickEdit}>cancel</button>
+        </>
+      )}
     </div>
   )
 }
