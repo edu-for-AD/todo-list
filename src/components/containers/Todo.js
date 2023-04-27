@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import TodoFilter from '../presentations/TodoFilter'
 import TodoItem from '../presentations/TodoItem'
 import TodoTop from '../presentations/TodoTop'
 
@@ -45,12 +46,43 @@ function Todo() {
       )
     )
   }
+  const [archivedFilter, setArchivedFilter] = useState('all')
+  const [activatedFilter, setActivatedFilter] = useState('all')
   const isEditing = todos.some((todo) => todo.isEditing)
+  const filteredTodos = todos
+    .filter((todo) => {
+      if (archivedFilter === 'archived') {
+        return todo.archived
+      }
+
+      if (archivedFilter === 'unarchived') {
+        return !todo.archived
+      }
+
+      return true
+    })
+    .filter((todo) => {
+      if (activatedFilter === 'activated') {
+        return todo.activated
+      }
+
+      if (activatedFilter === 'inactivated') {
+        return !todo.activated
+      }
+
+      return true
+    })
 
   return (
     <div>
       <TodoTop isEditing={isEditing} addTodo={addTodo} />
-      {todos.map((todo) => (
+      <TodoFilter
+        archivedFilter={archivedFilter}
+        setArchivedFilter={setArchivedFilter}
+        activatedFilter={activatedFilter}
+        setActivatedFilter={setActivatedFilter}
+      />
+      {filteredTodos.map((todo) => (
         <TodoItem
           key={todo.id}
           id={todo.id}
