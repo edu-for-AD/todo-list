@@ -7,13 +7,16 @@ function Todo() {
   const [archive, setArchive] = useState(false)
   const [edit, setEdit] = useState(false)
   const handleArchive = () => {
-    setArchive((current) => !current)
+    setArchive((prev) => !prev)
   }
   const handleEdit = () => {
-    setEdit((current) => !current)
+    setEdit((prev) => !prev)
   }
   const handleConfirm = () => {
-    setEdit((current) => !current)
+    setEdit((prev) => !prev)
+  }
+  const handleCancel = () => {
+    setEdit((prev) => !prev)
   }
   const addTodo = (todo) => {
     setTodos([...todos, todo])
@@ -37,6 +40,7 @@ function Todo() {
           handleArchive={handleArchive}
           handleEdit={handleEdit}
           handleConfirm={handleConfirm}
+          handleCancel={handleCancel}
         />
       ))}
     </div>

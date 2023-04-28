@@ -6,6 +6,7 @@ function TodoItem({
   handleArchive,
   handleEdit,
   handleConfirm,
+  handleCancel,
   id,
   text,
   deleteTodo
@@ -45,7 +46,7 @@ function TodoItem({
       {edit && (
         <>
           <button onClick={handleConfirm}>confirm</button>
-          <button onClick={handleEdit}>cancel</button>
+          <button onClick={handleCancel}>cancel</button>
         </>
       )}
     </div>
