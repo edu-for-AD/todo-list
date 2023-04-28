@@ -11,7 +11,9 @@ function Todo() {
   const deleteTodo = (id) => {
     setTodos((prev) => prev.filter((todo) => todo.id !== id))
   }
-  const changeTodo = () => {}
+  const changeTodo = () => {
+    console.log('changeTodo function run')
+  }
 
   return (
     <div>

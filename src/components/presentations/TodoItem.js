@@ -25,7 +25,9 @@ function TodoItem({ id, text, changeTodo, deleteTodo }) {
   const handleDelete = () => {
     deleteTodo(id)
   }
-  const handleChange = () => {}
+  const handleChange = () => {
+    changeTodo()
+  }
   return (
     <div style={{ display: 'flex', width: '100%' }}>
       {edit ? (
