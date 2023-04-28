@@ -4,16 +4,23 @@ import TodoTop from '../presentations/TodoTop'
 
 function Todo() {
   const [todos, setTodos] = useState([])
+  const [archive, setArchive] = useState(false)
+  const [edit, setEdit] = useState(false)
+  const handleArchive = () => {
+    setArchive((current) => !current)
+  }
+  const handleEdit = () => {
+    setEdit((current) => !current)
+  }
+  const handleConfirm = () => {
+    setEdit((current) => !current)
+  }
   const addTodo = (todo) => {
     setTodos([...todos, todo])
   }
   const deleteTodo = (id) => {
     setTodos((prev) => prev.filter((todo) => todo.id !== id))
     console.log('delete')
-  }
-  const changeTodo = (id) => {
-    console.log('changeTodo')
-    todos.map((todo) => (todo.id === id ? console.log(todo.text) : null))
   }
 
   return (
@@ -25,7 +32,11 @@ function Todo() {
           id={todo.id}
           text={todo.text}
           deleteTodo={deleteTodo}
-          changeTodo={changeTodo}
+          archive={archive}
+          edit={edit}
+          handleArchive={handleArchive}
+          handleEdit={handleEdit}
+          handleConfirm={handleConfirm}
         />
       ))}
     </div>

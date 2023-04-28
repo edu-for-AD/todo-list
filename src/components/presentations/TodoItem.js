@@ -1,22 +1,17 @@
 import { useState } from 'react'
 
-function TodoItem({ id, text, deleteTodo, changeTodo }) {
-  const [archive, setArchive] = useState(false)
-  const [edit, setEdit] = useState(false)
-  const [todo, setTodo] = useState(text)
+function TodoItem({
+  archive,
+  edit,
+  handleArchive,
+  handleEdit,
+  handleConfirm,
+  id,
+  text,
+  deleteTodo
+}) {
+  const [todo, setTodo] = useState('')
 
-  const handleArchive = () => {
-    setArchive((current) => !current)
-  }
-  const handleEdit = () => {
-    setEdit((current) => !current)
-    setTodo(text)
-  }
-  const handleConfirm = () => {
-    setEdit((current) => !current)
-    changeTodo(id)
-    console.log('confirm')
-  }
   const handleChange = (event) => {
     setTodo(event.target.value)
   }
