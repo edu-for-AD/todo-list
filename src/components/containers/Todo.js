@@ -25,7 +25,7 @@ function Todo() {
 
   return (
     <div>
-      <TodoTop addTodo={addTodo} />
+      <TodoTop addTodo={addTodo} edit={edit} />
       {todos.map((todo) => (
         <TodoItem
           key={todo.id} // why need key? is it necessary?
