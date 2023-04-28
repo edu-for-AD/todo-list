@@ -29,11 +29,13 @@ function TodoItem({ id, text, deleteTodo, changeTodo }) {
         <div style={{ opacity: archive ? '0.3' : '' }}>{text}</div> // unedit
       )}
 
-      {!archive && <button onClick={handleEdit}>edit</button>}
+      {!archive && !edit && <button onClick={handleEdit}>edit</button>}
 
-      <button onClick={handleArchive}>
-        {!archive ? 'archive' : 'unarchive'}
-      </button>
+      {!edit && (
+        <button onClick={handleArchive}>
+          {!archive ? 'archive' : 'unarchive'}
+        </button>
+      )}
 
       {archive && (
         <button
