@@ -32,8 +32,6 @@ function TodoItem({
   }
   const handleChange = (event) => {
     setTodo(event.target.value)
-
-    console.log('handleChange')
   }
   const onClick = () => {
     test()
