@@ -1,10 +1,17 @@
 import { useState } from 'react'
 // import { v1 as uuidv1 } from 'uuid'
 
-function TodoItem({ id, text, deleteTodo, editState, editStateCheck }) {
+function TodoItem({
+  id,
+  text,
+  deleteTodo,
+  editState,
+  editStateCheck,
+  cancelCheck,
+  test
+}) {
   const [todo, setTodo] = useState('')
   const [archive, setArchive] = useState(false)
-  // const [edit, setEdit] = useState(false)
 
   const handleArchive = () => {
     setArchive((prev) => !prev)
@@ -17,7 +24,7 @@ function TodoItem({ id, text, deleteTodo, editState, editStateCheck }) {
   const handleConfirm = () => {}
 
   const handleCancel = () => {
-    editStateCheck(id)
+    cancelCheck(id)
   }
 
   const handleDelete = () => {
@@ -27,6 +34,9 @@ function TodoItem({ id, text, deleteTodo, editState, editStateCheck }) {
     setTodo(event.target.value)
 
     console.log('handleChange')
+  }
+  const onClick = () => {
+    test()
   }
   return (
     <div style={{ display: 'flex', width: '100%' }}>
@@ -52,6 +62,7 @@ function TodoItem({ id, text, deleteTodo, editState, editStateCheck }) {
           <button onClick={handleCancel}>cancel</button>
         </>
       )}
+      <button onClick={onClick}>test</button>
     </div>
   )
 }

@@ -11,7 +11,15 @@ function Todo() {
   const deleteTodo = (id) => {
     setTodos((prev) => prev.filter((todo) => todo.id !== id))
   }
+  // This is only active test
+  const test = () => {
+    console.log(todos)
+  }
   const editStateCheck = (id) => {
+    console.log('editStateCheck function run')
+
+    setTodos(todos.map((todo) => (todo.editState = false)))
+
     setTodos(
       todos.map((todo) =>
         todo.id === id ? { ...todo, editState: !todo.editState } : todo
@@ -19,7 +27,18 @@ function Todo() {
     )
 
     setEdit((setEdit) => !setEdit)
-    console.log(todos)
+  }
+
+  const cancelCheck = (id) => {
+    console.log('cancelCheck function run')
+
+    setTodos(
+      todos.map((todo) =>
+        todo.id === id ? { ...todo, editState: !todo.editState } : todo
+      )
+    )
+
+    setEdit((setEdit) => !setEdit)
   }
 
   const changeTodo = () => {
@@ -40,6 +59,8 @@ function Todo() {
           setEdit={setEdit}
           editState={todo.editState}
           editStateCheck={editStateCheck}
+          cancelCheck={cancelCheck}
+          test={test}
         />
       ))}
     </div>
