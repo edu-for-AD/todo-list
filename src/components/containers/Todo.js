@@ -16,8 +16,6 @@ function Todo() {
   //   console.log(todos)
   // }
   const editStateCheck = (id) => {
-    console.log('editStateCheck function run')
-
     setTodos(todos.map((todo) => (todo.editState = false)))
 
     setTodos(
@@ -26,25 +24,30 @@ function Todo() {
       )
     )
 
-    setEdit((setEdit) => true)
+    setEdit(true)
   }
 
   const cancelCheck = (id) => {
-    console.log('cancelCheck function run')
-
     setTodos(
       todos.map((todo) =>
         todo.id === id ? { ...todo, editState: !todo.editState } : todo
       )
     )
 
-    setEdit((setEdit) => false)
+    setEdit(false)
   }
 
-  const changeTodo = () => {
-    console.log('changeTodo function run')
+  const changeTodo = (id, textItem) => {
+    setTodos(
+      todos.map((todo) =>
+        todo.id === id
+          ? { ...todo, text: textItem, editState: !todo.editState }
+          : todo
+      )
+    )
+    setEdit(false)
   }
-
+  console.log(todos)
   return (
     <div>
       <TodoTop addTodo={addTodo} edit={edit} setEdit={setEdit} />

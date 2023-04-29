@@ -7,7 +7,8 @@ function TodoItem({
   deleteTodo,
   editState,
   editStateCheck,
-  cancelCheck
+  cancelCheck,
+  changeTodo
   // test
 }) {
   const [todo, setTodo] = useState('')
@@ -21,7 +22,9 @@ function TodoItem({
     editStateCheck(id)
     setTodo(text)
   }
-  const handleConfirm = () => {}
+  const handleConfirm = (event) => {
+    changeTodo(id, todo)
+  }
 
   const handleCancel = () => {
     cancelCheck(id)
