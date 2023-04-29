@@ -25,6 +25,7 @@ function TodoItem({
 
   const handleCancel = () => {
     cancelCheck(id)
+    setTodo(text)
   }
 
   const handleDelete = () => {
