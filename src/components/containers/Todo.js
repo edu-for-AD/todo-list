@@ -20,7 +20,7 @@ function Todo() {
       <TodoTop addTodo={addTodo} />
       {todos.map((todo) => (
         <TodoItem
-          key={todo.id} // why need key? is it necessary?
+          key={todo.id}
           id={todo.id}
           text={todo.text}
           changeTodo={changeTodo}
