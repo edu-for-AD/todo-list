@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { v1 as uuidv1 } from 'uuid'
+// import { v1 as uuidv1 } from 'uuid'
 
 function TodoItem({ id, text, deleteTodo, editState, editStateCheck }) {
   const [todo, setTodo] = useState('')
