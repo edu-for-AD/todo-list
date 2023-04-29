@@ -7,8 +7,8 @@ function TodoItem({
   deleteTodo,
   editState,
   editStateCheck,
-  cancelCheck,
-  test
+  cancelCheck
+  // test
 }) {
   const [todo, setTodo] = useState('')
   const [archive, setArchive] = useState(false)
@@ -60,7 +60,7 @@ function TodoItem({
           <button onClick={handleCancel}>cancel</button>
         </>
       )}
-      <button onClick={onClick}>test</button>
+      {/* <button onClick={onClick}>test</button> */}
     </div>
   )
 }
