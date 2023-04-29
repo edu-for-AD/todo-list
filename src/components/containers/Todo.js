@@ -12,9 +12,9 @@ function Todo() {
     setTodos((prev) => prev.filter((todo) => todo.id !== id))
   }
   // This is only active test
-  const test = () => {
-    console.log(todos)
-  }
+  // const test = () => {
+  //   console.log(todos)
+  // }
   const editStateCheck = (id) => {
     console.log('editStateCheck function run')
 
@@ -60,7 +60,7 @@ function Todo() {
           editState={todo.editState}
           editStateCheck={editStateCheck}
           cancelCheck={cancelCheck}
-          test={test}
+          // test={test}
         />
       ))}
     </div>

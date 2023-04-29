@@ -33,9 +33,9 @@ function TodoItem({
   const handleChange = (event) => {
     setTodo(event.target.value)
   }
-  const onClick = () => {
-    test()
-  }
+  // const onClick = () => {
+  //   test()
+  // }
   return (
     <div style={{ display: 'flex', width: '100%' }}>
       {editState ? (
