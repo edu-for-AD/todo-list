@@ -1,14 +1,7 @@
 import { useState } from 'react'
 import { v1 as uuidv1 } from 'uuid'
 
-function TodoItem({
-  id,
-  text,
-  changeTodo,
-  deleteTodo,
-  editState,
-  editStateCheck
-}) {
+function TodoItem({ id, text, deleteTodo, editState, editStateCheck }) {
   const [todo, setTodo] = useState('')
   const [archive, setArchive] = useState(false)
   // const [edit, setEdit] = useState(false)
@@ -19,11 +12,9 @@ function TodoItem({
 
   const handleEdit = () => {
     editStateCheck(id)
+    setTodo(text)
   }
-  const handleConfirm = () => {
-    changeTodo({ id: uuidv1(), text: todo })
-    setTodo('')
-  }
+  const handleConfirm = () => {}
 
   const handleCancel = () => {
     editStateCheck(id)
@@ -32,8 +23,10 @@ function TodoItem({
   const handleDelete = () => {
     deleteTodo(id)
   }
-  const handleChange = () => {
-    changeTodo()
+  const handleChange = (event) => {
+    setTodo(event.target.value)
+
+    console.log('handleChange')
   }
   return (
     <div style={{ display: 'flex', width: '100%' }}>
