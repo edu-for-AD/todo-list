@@ -1,17 +1,24 @@
 import { useState } from 'react'
 import { v1 as uuidv1 } from 'uuid'
 
-function TodoItem({ id, text, changeTodo, deleteTodo }) {
+function TodoItem({
+  id,
+  text,
+  changeTodo,
+  deleteTodo,
+  editState,
+  editStateCheck
+}) {
   const [todo, setTodo] = useState('')
-
   const [archive, setArchive] = useState(false)
-  const [edit, setEdit] = useState(false)
+  // const [edit, setEdit] = useState(false)
 
   const handleArchive = () => {
     setArchive((prev) => !prev)
   }
+
   const handleEdit = () => {
-    setEdit((prev) => !prev)
+    editStateCheck(id)
   }
   const handleConfirm = () => {
     changeTodo({ id: uuidv1(), text: todo })
@@ -19,7 +26,7 @@ function TodoItem({ id, text, changeTodo, deleteTodo }) {
   }
 
   const handleCancel = () => {
-    setEdit((prev) => !prev)
+    editStateCheck(id)
   }
 
   const handleDelete = () => {
@@ -30,15 +37,15 @@ function TodoItem({ id, text, changeTodo, deleteTodo }) {
   }
   return (
     <div style={{ display: 'flex', width: '100%' }}>
-      {edit ? (
+      {editState ? (
         <input type="text" value={todo} onChange={handleChange} /> // edit
       ) : (
         <div style={{ opacity: archive ? '0.3' : '' }}>{text}</div> // unedit
       )}
 
-      {!archive && !edit && <button onClick={handleEdit}>edit</button>}
+      {!archive && !editState && <button onClick={handleEdit}>edit</button>}
 
-      {!edit && (
+      {!editState && (
         <button onClick={handleArchive}>
           {!archive ? 'archive' : 'unarchive'}
         </button>
@@ -46,7 +53,7 @@ function TodoItem({ id, text, changeTodo, deleteTodo }) {
 
       {archive && <button onClick={handleDelete}>delete</button>}
 
-      {edit && (
+      {editState && (
         <>
           <button onClick={handleConfirm}>confirm</button>
           <button onClick={handleCancel}>cancel</button>
