@@ -26,7 +26,7 @@ function Todo() {
       )
     )
 
-    setEdit((setEdit) => !setEdit)
+    setEdit((setEdit) => true)
   }
 
   const cancelCheck = (id) => {
@@ -38,7 +38,7 @@ function Todo() {
       )
     )
 
-    setEdit((setEdit) => !setEdit)
+    setEdit((setEdit) => false)
   }
 
   const changeTodo = () => {
