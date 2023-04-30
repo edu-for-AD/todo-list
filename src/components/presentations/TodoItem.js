@@ -1,62 +1,105 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 function TodoItem({
   id,
   text,
   deleteTodo,
-  editState,
-  editStateCheck,
-  cancelCheck,
-  changeTodo
+  editing,
+  changeEditingStatus,
+  changeArchiveStatus,
+  changeActivateStatus,
+  cancelTodo,
+  confirmTodo,
+  archived,
+  activated
 }) {
-  const [todo, setTodo] = useState('')
-  const [archive, setArchive] = useState(false)
+  const [editingTodo, setEditingTodo] = useState('')
+
+  useEffect(() => {
+    if (!editing) {
+      setEditingTodo(text)
+    }
+  }, [editing, text])
 
   const handleArchive = () => {
-    setArchive((prev) => !prev)
+    changeArchiveStatus(id)
   }
 
-  const handleEdit = () => {
-    editStateCheck(id)
-    setTodo(text)
-  }
-  const handleConfirm = (event) => {
-    changeTodo(id, todo)
-  }
-
-  const handleCancel = () => {
-    cancelCheck(id)
-    setTodo(text)
+  const handleConfirm = () => {
+    confirmTodo(id, editingTodo)
   }
 
   const handleDelete = () => {
     deleteTodo(id)
   }
+
   const handleChange = (event) => {
-    setTodo(event.target.value)
+    setEditingTodo(event.target.value)
   }
+
+  const handleChangeActivate = () => {
+    changeActivateStatus(id)
+  }
+
+  const handleKeyDown = (event) => {
+    const key = event.code
+    switch (key) {
+      case 'Enter':
+      case 'NumpadEnter':
+        handleConfirm()
+        break
+
+      case 'Escape':
+        cancelTodo(id)
+        break
+
+      default:
+    }
+  }
+
   return (
     <div style={{ display: 'flex', width: '100%' }}>
-      {editState ? (
-        <input type="text" value={todo} onChange={handleChange} />
+      {editing ? (
+        <input
+          type="text"
+          value={editingTodo}
+          onChange={handleChange}
+          onKeyDown={handleKeyDown}
+        />
       ) : (
-        <div style={{ opacity: archive ? '0.3' : '' }}>{text}</div>
+        <>
+          <input
+            type="checkbox"
+            checked={activated}
+            onChange={handleChangeActivate}
+          />
+          <div
+            style={{
+              textDecoration: activated ? 'line-through' : '',
+              opacity: archived ? '0.3' : ''
+            }}
+          >
+            {text}
+          </div>
+        </>
       )}
 
-      {!archive && !editState && <button onClick={handleEdit}>edit</button>}
+      {!archived && !editing && (
+        <button onClick={() => changeEditingStatus(id)}>edit</button>
+      )}
 
-      {!editState && (
+      {!editing && (
         <button onClick={handleArchive}>
-          {!archive ? 'archive' : 'unarchive'}
+          {!archived ? 'archive' : 'unarchive'}
         </button>
       )}
 
-      {archive && <button onClick={handleDelete}>delete</button>}
+      {archived && <button onClick={handleDelete}>delete</button>}
 
-      {editState && (
+      {editing && (
         <>
           <button onClick={handleConfirm}>confirm</button>
-          <button onClick={handleCancel}>cancel</button>
+          <button onClick={() => cancelTodo(id)}>cancel</button>
         </>
       )}
     </div>

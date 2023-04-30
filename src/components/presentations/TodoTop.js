@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { v1 as uuidv1 } from 'uuid'
 
-function TodoTop({ addTodo, edit }) {
+function TodoTop({ addTodo, editing }) {
   const [todo, setTodo] = useState('')
   const handleChange = (event) => {
     setTodo(event.target.value)
@@ -9,32 +9,27 @@ function TodoTop({ addTodo, edit }) {
 
   return (
     <div style={{ display: 'flex', width: '100%' }}>
-      {edit ? (
-        <>
-          <input type="text" value={todo} onChange={handleChange} disabled />
-          <button
-            disabled
-            onClick={() => {
-              addTodo({ id: uuidv1(), text: todo, editState: false })
-              setTodo('')
-            }}
-          >
-            add
-          </button>
-        </>
-      ) : (
-        <>
-          <input type="text" value={todo} onChange={handleChange} />
-          <button
-            onClick={() => {
-              addTodo({ id: uuidv1(), text: todo, editState: false })
-              setTodo('')
-            }}
-          >
-            add
-          </button>
-        </>
-      )}
+      <input
+        type="text"
+        value={todo}
+        onChange={handleChange}
+        disabled={editing}
+      />
+      <button
+        onClick={() => {
+          addTodo({
+            id: uuidv1(),
+            text: todo,
+            editing: false,
+            archived: false,
+            activated: false
+          })
+          setTodo('')
+        }}
+        disabled={editing}
+      >
+        add
+      </button>
     </div>
   )
 }
