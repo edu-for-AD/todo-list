@@ -1,5 +1,4 @@
 import { useState } from 'react'
-// import { v1 as uuidv1 } from 'uuid'
 
 function TodoItem({
   id,
@@ -9,7 +8,6 @@ function TodoItem({
   editStateCheck,
   cancelCheck,
   changeTodo
-  // test
 }) {
   const [todo, setTodo] = useState('')
   const [archive, setArchive] = useState(false)
@@ -37,15 +35,12 @@ function TodoItem({
   const handleChange = (event) => {
     setTodo(event.target.value)
   }
-  // const onClick = () => {
-  //   test()
-  // }
   return (
     <div style={{ display: 'flex', width: '100%' }}>
       {editState ? (
-        <input type="text" value={todo} onChange={handleChange} /> // edit
+        <input type="text" value={todo} onChange={handleChange} />
       ) : (
-        <div style={{ opacity: archive ? '0.3' : '' }}>{text}</div> // unedit
+        <div style={{ opacity: archive ? '0.3' : '' }}>{text}</div>
       )}
 
       {!archive && !editState && <button onClick={handleEdit}>edit</button>}
@@ -64,7 +59,6 @@ function TodoItem({
           <button onClick={handleCancel}>cancel</button>
         </>
       )}
-      {/* <button onClick={onClick}>test</button> */}
     </div>
   )
 }
