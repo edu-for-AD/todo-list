@@ -4,7 +4,6 @@ import TodoTop from '../presentations/TodoTop'
 
 function Todo() {
   const [todos, setTodos] = useState([])
-  const [edit, setEdit] = useState()
   const addTodo = (todo) => {
     setTodos([...todos, todo])
   }
@@ -12,15 +11,11 @@ function Todo() {
     setTodos((prev) => prev.filter((todo) => todo.id !== id))
   }
   const editStateCheck = (id) => {
-    setTodos(todos.map((todo) => (todo.editState = false)))
-
     setTodos(
       todos.map((todo) =>
         todo.id === id ? { ...todo, editState: !todo.editState } : todo
       )
     )
-
-    setEdit(true)
   }
 
   const cancelCheck = (id) => {
@@ -29,8 +24,6 @@ function Todo() {
         todo.id === id ? { ...todo, editState: !todo.editState } : todo
       )
     )
-
-    setEdit(false)
   }
 
   const changeTodo = (id, textItem) => {
@@ -41,12 +34,22 @@ function Todo() {
           : todo
       )
     )
-    setEdit(false)
   }
-  console.log(todos)
+  let editState = todos.map((todo) => todo.editState)
+
+  console.log(
+    'Todo(Container) .map()todos.editState: ' +
+      todos.map((todo) => todo.editState)
+  )
+  console.log('Todo(Container) editState: ' + editState)
+
   return (
     <div>
-      <TodoTop addTodo={addTodo} edit={edit} setEdit={setEdit} />
+      {/* {todos.map((todo) => (
+        <TodoTop addTodo={addTodo} editState={todo.editState} />
+      ))} */}
+      <TodoTop addTodo={addTodo} editState={editState} />
+
       {todos.map((todo) => (
         <TodoItem
           key={todo.id}
@@ -54,8 +57,6 @@ function Todo() {
           text={todo.text}
           changeTodo={changeTodo}
           deleteTodo={deleteTodo}
-          edit={edit}
-          setEdit={setEdit}
           editState={todo.editState}
           editStateCheck={editStateCheck}
           cancelCheck={cancelCheck}
