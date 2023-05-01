@@ -4,10 +4,9 @@ function TodoItem({
   id,
   text,
   deleteTodo,
-  editState,
-  editStateCheck,
-  cancelCheck,
-  changeTodo
+  editing,
+  changeEditingStatus,
+  confirmTodo
 }) {
   const [todo, setTodo] = useState('')
   const [archive, setArchive] = useState(false)
@@ -17,15 +16,15 @@ function TodoItem({
   }
 
   const handleEdit = () => {
-    editStateCheck(id)
+    changeEditingStatus(id)
     setTodo(text)
   }
-  const handleConfirm = (event) => {
-    changeTodo(id, todo)
+  const handleConfirm = () => {
+    confirmTodo(id, todo)
   }
 
   const handleCancel = () => {
-    cancelCheck(id)
+    changeEditingStatus(id)
     setTodo(text)
   }
 
@@ -37,15 +36,15 @@ function TodoItem({
   }
   return (
     <div style={{ display: 'flex', width: '100%' }}>
-      {editState ? (
+      {editing ? (
         <input type="text" value={todo} onChange={handleChange} />
       ) : (
         <div style={{ opacity: archive ? '0.3' : '' }}>{text}</div>
       )}
 
-      {!archive && !editState && <button onClick={handleEdit}>edit</button>}
+      {!archive && !editing && <button onClick={handleEdit}>edit</button>}
 
-      {!editState && (
+      {!editing && (
         <button onClick={handleArchive}>
           {!archive ? 'archive' : 'unarchive'}
         </button>
@@ -53,7 +52,7 @@ function TodoItem({
 
       {archive && <button onClick={handleDelete}>delete</button>}
 
-      {editState && (
+      {editing && (
         <>
           <button onClick={handleConfirm}>confirm</button>
           <button onClick={handleCancel}>cancel</button>
