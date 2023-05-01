@@ -6,6 +6,7 @@ function TodoItem({
   deleteTodo,
   editing,
   changeEditingStatus,
+  cancelTodo,
   confirmTodo
 }) {
   const [todo, setTodo] = useState('')
@@ -24,7 +25,7 @@ function TodoItem({
   }
 
   const handleCancel = () => {
-    changeEditingStatus(id)
+    cancelTodo(id)
     setTodo(text)
   }
 
