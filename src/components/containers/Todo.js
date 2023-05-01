@@ -16,13 +16,9 @@ function Todo() {
   }
 
   const changeEditingStatus = (id) => {
+    setTodos(todos.map((todo) => (todo.editing = false)))
     setTodos(
-      todos.map(
-        (todo) => (
-          (todo.editing = false),
-          todo.id === id ? { ...todo, editing: true } : todo
-        )
-      )
+      todos.map((todo) => (todo.id === id ? { ...todo, editing: true } : todo))
     )
   }
 
