@@ -9,7 +9,7 @@ function TodoItem({
   cancelTodo,
   confirmTodo
 }) {
-  const [todo, setTodo] = useState('')
+  const [editingTodo, setEditingTodo] = useState('')
   const [archive, setArchive] = useState(false)
 
   const handleArchive = () => {
@@ -18,25 +18,26 @@ function TodoItem({
 
   const handleEdit = () => {
     changeEditingStatus(id)
-    setTodo(text)
+    setEditingTodo(text)
   }
   const handleConfirm = () => {
-    confirmTodo(id, todo)
+    confirmTodo(id, editingTodo)
   }
 
   const handleCancel = () => {
     cancelTodo(id)
-    setTodo(text)
+    setEditingTodo(text)
   }
 
   const handleDelete = () => {
     deleteTodo(id)
   }
+
   const handleChange = (event) => {
-    setTodo(event.target.value)
+    setEditingTodo(event.target.value)
   }
 
-  const handleOnKeyUp = (event) => {
+  const handleKeyDown = (event) => {
     const key = event.code
     switch (key) {
       case 'Enter':
@@ -57,9 +58,9 @@ function TodoItem({
       {editing ? (
         <input
           type="text"
-          value={todo}
+          value={editingTodo}
           onChange={handleChange}
-          onKeyUp={handleOnKeyUp}
+          onKeyDown={handleKeyDown}
         />
       ) : (
         <div style={{ opacity: archive ? '0.3' : '' }}>{text}</div>

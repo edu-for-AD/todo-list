@@ -15,20 +15,29 @@ function Todo() {
   }
 
   const changeEditingStatus = (id) => {
-    setTodos(todos.map((todo) => (todo.editing = false)))
-    setTodos(
-      todos.map((todo) => (todo.id === id ? { ...todo, editing: true } : todo))
+    setTodos((todos) =>
+      todos.map((todo) => {
+        if (todo.id === id) {
+          return { ...todo, editing: !todo.editing }
+        }
+
+        if (todo.editing === true) {
+          return { ...todo, editing: false }
+        }
+
+        return todo
+      })
     )
   }
 
   const cancelTodo = (id) => {
-    setTodos(
+    setTodos((todos) =>
       todos.map((todo) => (todo.id === id ? { ...todo, editing: false } : todo))
     )
   }
 
   const confirmTodo = (id, textItem) => {
-    setTodos(
+    setTodos((todos) =>
       todos.map((todo) =>
         todo.id === id
           ? { ...todo, text: textItem, editing: !todo.editing }
