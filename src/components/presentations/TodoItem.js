@@ -11,6 +11,7 @@ function TodoItem({
 }) {
   const [editingTodo, setEditingTodo] = useState('')
   const [archive, setArchive] = useState(false)
+  const [inActive, setInActive] = useState(false)
 
   const handleArchive = () => {
     setArchive((prev) => !prev)
@@ -35,6 +36,10 @@ function TodoItem({
 
   const handleChange = (event) => {
     setEditingTodo(event.target.value)
+  }
+
+  const handleChangeCheckBox = () => {
+    setInActive((prev) => !prev)
   }
 
   const handleKeyDown = (event) => {
@@ -63,7 +68,21 @@ function TodoItem({
           onKeyDown={handleKeyDown}
         />
       ) : (
-        <div style={{ opacity: archive ? '0.3' : '' }}>{text}</div>
+        <>
+          <input
+            type="checkbox"
+            checked={inActive}
+            onChange={handleChangeCheckBox}
+          />
+          <div
+            style={{
+              textDecoration: inActive ? 'line-through' : '',
+              opacity: archive ? '0.3' : ''
+            }}
+          >
+            {text}
+          </div>
+        </>
       )}
 
       {!archive && !editing && <button onClick={handleEdit}>edit</button>}
