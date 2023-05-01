@@ -1,36 +1,68 @@
 import { useState } from 'react'
 
 function TodoFilter() {
-  const [filterTodo, setFilterTodo] = useState('All')
-  const handleChange = (event) => {
-    setFilterTodo(event.target.value)
+  const [filterArchive, setFilterArchive] = useState('All')
+  const [filterActivate, setFilterActivate] = useState('All')
+  const handleChangeArchive = (event) => {
+    setFilterArchive(event.target.value)
+  }
+  const handleChangeActivate = (event) => {
+    setFilterActivate(event.target.value)
   }
   return (
-    <div style={{ display: 'flex', width: '100%' }}>
-      <input
-        type="radio"
-        name="filter"
-        value="All"
-        checked={filterTodo === 'All'}
-        onChange={handleChange}
-      />
-      All
-      <input
-        type="radio"
-        name="filter"
-        value="Activated"
-        checked={filterTodo === 'Activated'}
-        onChange={handleChange}
-      />
-      Activated
-      <input
-        type="radio"
-        name="filter"
-        value="InActivated"
-        checked={filterTodo === 'InActivated'}
-        onChange={handleChange}
-      />
-      InActivated
+    <div>
+      <div style={{ display: 'flex', width: '100%' }}>
+        <input
+          type="radio"
+          name="filterArchive"
+          value="All"
+          checked={filterArchive === 'All'}
+          onChange={handleChangeArchive}
+        />
+        All
+        <input
+          type="radio"
+          name="filterArchive"
+          value="Archived"
+          checked={filterArchive === 'Archived'}
+          onChange={handleChangeArchive}
+        />
+        Activated
+        <input
+          type="radio"
+          name="filterArchive"
+          value="Unarchived"
+          checked={filterArchive === 'Unarchived'}
+          onChange={handleChangeArchive}
+        />
+        InActivated
+      </div>
+      <div style={{ display: 'flex', width: '100%' }}>
+        <input
+          type="radio"
+          name="filterActivate"
+          value="All"
+          checked={filterActivate === 'All'}
+          onChange={handleChangeActivate}
+        />
+        All
+        <input
+          type="radio"
+          name="filterActivate"
+          value="Activated"
+          checked={filterActivate === 'Activated'}
+          onChange={handleChangeActivate}
+        />
+        Activated
+        <input
+          type="radio"
+          name="filterActivate"
+          value="Inactivated"
+          checked={filterActivate === 'Inactivated'}
+          onChange={handleChangeActivate}
+        />
+        InActivated
+      </div>
     </div>
   )
 }
