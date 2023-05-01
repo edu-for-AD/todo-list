@@ -35,10 +35,32 @@ function TodoItem({
   const handleChange = (event) => {
     setTodo(event.target.value)
   }
+
+  const handleOnKeyUp = (event) => {
+    const key = event.code
+    switch (key) {
+      case 'Enter':
+      case 'NumpadEnter':
+        handleConfirm()
+        break
+
+      case 'Escape':
+        handleCancel()
+        break
+
+      default:
+    }
+  }
+
   return (
     <div style={{ display: 'flex', width: '100%' }}>
       {editing ? (
-        <input type="text" value={todo} onChange={handleChange} />
+        <input
+          type="text"
+          value={todo}
+          onChange={handleChange}
+          onKeyUp={handleOnKeyUp}
+        />
       ) : (
         <div style={{ opacity: archive ? '0.3' : '' }}>{text}</div>
       )}
