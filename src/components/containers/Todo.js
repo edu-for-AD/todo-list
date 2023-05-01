@@ -5,7 +5,6 @@ import TodoTop from '../presentations/TodoTop'
 function Todo() {
   const [todos, setTodos] = useState([])
   const editing = todos.some((todo) => todo.editing === true)
-  console.log(todos)
 
   const addTodo = (todo) => {
     setTodos([...todos, todo])
