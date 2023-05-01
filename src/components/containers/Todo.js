@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import TodoItem from '../presentations/TodoItem'
 import TodoTop from '../presentations/TodoTop'
+import TodoFilter from '../presentations/TodoFilter'
 
 function Todo() {
   const [todos, setTodos] = useState([])
@@ -49,7 +50,7 @@ function Todo() {
   return (
     <div>
       <TodoTop addTodo={addTodo} editing={editing} />
-
+      <TodoFilter />
       {todos.map((todo) => (
         <TodoItem
           key={todo.id}
