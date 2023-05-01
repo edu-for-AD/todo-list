@@ -5,6 +5,7 @@ import TodoTop from '../presentations/TodoTop'
 function Todo() {
   const [todos, setTodos] = useState([])
   const editing = todos.some((todo) => todo.editing === true)
+  console.log(todos)
 
   const addTodo = (todo) => {
     setTodos([...todos, todo])
@@ -16,9 +17,18 @@ function Todo() {
 
   const changeEditingStatus = (id) => {
     setTodos(
-      todos.map((todo) =>
-        todo.id === id ? { ...todo, editing: !todo.editing } : todo
+      todos.map(
+        (todo) => (
+          (todo.editing = false),
+          todo.id === id ? { ...todo, editing: true } : todo
+        )
       )
+    )
+  }
+
+  const cancelTodo = (id) => {
+    setTodos(
+      todos.map((todo) => (todo.id === id ? { ...todo, editing: false } : todo))
     )
   }
 
@@ -44,6 +54,7 @@ function Todo() {
           confirmTodo={confirmTodo}
           deleteTodo={deleteTodo}
           editing={todo.editing}
+          cancelTodo={cancelTodo}
           changeEditingStatus={changeEditingStatus}
         />
       ))}
