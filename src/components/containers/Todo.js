@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import TodoItem from '../presentations/TodoItem'
 import TodoTop from '../presentations/TodoTop'
 
