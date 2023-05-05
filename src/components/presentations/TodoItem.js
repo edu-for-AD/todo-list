@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
 import TodoArchiveBtn from './TodoArchiveBtn'
-import TodoEditBtn from './TodoEditBtn'
+
 
 function TodoItem({ id, text, deleteTodo, modifiedTodo }) {
   const [isArchive, setIsArchive] = useState(false)
