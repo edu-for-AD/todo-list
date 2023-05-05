@@ -1,7 +1,5 @@
 import { useState } from 'react'
 
-import TodoArchiveBtn from './TodoArchiveBtn'
-
 function TodoItem({ id, text, deleteTodo, modifiedTodo }) {
   const [isArchive, setIsArchive] = useState(false)
   const [isEdit, setIsEdit] = useState(false)
@@ -23,7 +21,6 @@ function TodoItem({ id, text, deleteTodo, modifiedTodo }) {
           <span>{text}</span>
         )}
       </div>
-
       {!isArchive &&
         (isEdit === false ? (
           <button
@@ -53,14 +50,33 @@ function TodoItem({ id, text, deleteTodo, modifiedTodo }) {
           </>
         ))}
 
-      {!isEdit && (
-        <TodoArchiveBtn
-          id={id}
-          isArchive={isArchive}
-          setIsArchive={setIsArchive}
-          deleteTodo={deleteTodo}
-        />
-      )}
+      {!isEdit &&
+        (isArchive === false ? (
+          <button
+            onClick={() => {
+              setIsArchive(!isArchive)
+            }}
+          >
+            Archive
+          </button>
+        ) : (
+          <>
+            <button
+              onClick={() => {
+                setIsArchive(!isArchive)
+              }}
+            >
+              UnArchive
+            </button>
+            <button
+              onClick={() => {
+                deleteTodo(id)
+              }}
+            >
+              Delete
+            </button>
+          </>
+        ))}
     </div>
   )
 }
