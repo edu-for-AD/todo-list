@@ -6,6 +6,8 @@ import TodoFilter from '../presentations/TodoFilter'
 function Todo() {
   const [todos, setTodos] = useState([])
   const editing = todos.some((todo) => todo.editing === true)
+  const archiving = ''
+  const activating = ''
 
   const addTodo = (todo) => {
     setTodos([...todos, todo])
@@ -31,6 +33,29 @@ function Todo() {
     )
   }
 
+  const changeArchivingStatus = (id) => {
+    setTodos((todos) =>
+      todos.map((todo) => {
+        if (todo.id === id) {
+          return { ...todo, archiving: !todo.archiving }
+        }
+
+        return todo
+      })
+    )
+  }
+
+  const changeActivatingStatus = (id) => {
+    setTodos((todos) =>
+      todos.map((todo) => {
+        if (todo.id === id) {
+          return { ...todo, activating: !todo.activating }
+        }
+
+        return todo
+      })
+    )
+  }
   const cancelTodo = (id) => {
     setTodos((todos) =>
       todos.map((todo) => (todo.id === id ? { ...todo, editing: false } : todo))
@@ -49,7 +74,12 @@ function Todo() {
 
   return (
     <div>
-      <TodoTop addTodo={addTodo} editing={editing} />
+      <TodoTop
+        addTodo={addTodo}
+        editing={editing}
+        archiving={archiving}
+        activating={activating}
+      />
       <TodoFilter />
       {todos.map((todo) => (
         <TodoItem
@@ -61,6 +91,10 @@ function Todo() {
           editing={todo.editing}
           cancelTodo={cancelTodo}
           changeEditingStatus={changeEditingStatus}
+          changeArchivingStatus={changeArchivingStatus}
+          changeActivatingStatus={changeActivatingStatus}
+          archiving={todo.archiving}
+          activating={todo.activating}
         />
       ))}
     </div>

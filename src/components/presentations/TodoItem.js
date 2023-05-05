@@ -6,15 +6,17 @@ function TodoItem({
   deleteTodo,
   editing,
   changeEditingStatus,
+  changeArchivingStatus,
+  changeActivatingStatus,
   cancelTodo,
-  confirmTodo
+  confirmTodo,
+  archiving,
+  activating
 }) {
   const [editingTodo, setEditingTodo] = useState('')
-  const [archive, setArchive] = useState(false)
-  const [inActive, setInActive] = useState(false)
 
   const handleArchive = () => {
-    setArchive((prev) => !prev)
+    changeArchivingStatus(id)
   }
 
   const handleEdit = () => {
@@ -38,8 +40,8 @@ function TodoItem({
     setEditingTodo(event.target.value)
   }
 
-  const handleChangeCheckBox = () => {
-    setInActive((prev) => !prev)
+  const handleChangeActivating = () => {
+    changeActivatingStatus(id)
   }
 
   const handleKeyDown = (event) => {
@@ -71,13 +73,13 @@ function TodoItem({
         <>
           <input
             type="checkbox"
-            checked={inActive}
-            onChange={handleChangeCheckBox}
+            checked={activating}
+            onChange={handleChangeActivating}
           />
           <div
             style={{
-              textDecoration: inActive ? 'line-through' : '',
-              opacity: archive ? '0.3' : ''
+              textDecoration: activating ? 'line-through' : '',
+              opacity: archiving ? '0.3' : ''
             }}
           >
             {text}
@@ -85,15 +87,15 @@ function TodoItem({
         </>
       )}
 
-      {!archive && !editing && <button onClick={handleEdit}>edit</button>}
+      {!archiving && !editing && <button onClick={handleEdit}>edit</button>}
 
       {!editing && (
         <button onClick={handleArchive}>
-          {!archive ? 'archive' : 'unarchive'}
+          {!archiving ? 'archive' : 'unarchive'}
         </button>
       )}
 
-      {archive && <button onClick={handleDelete}>delete</button>}
+      {archiving && <button onClick={handleDelete}>delete</button>}
 
       {editing && (
         <>
