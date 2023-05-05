@@ -1,25 +1,34 @@
-
-function TodoArchiveBtn({ id,isArchive, setIsArchive,deleteTodo }) {
-
-    return (
+function TodoArchiveBtn({ id, isArchive, setIsArchive, deleteTodo }) {
+  return (
+    <>
+      {isArchive === false ? (
+        <button
+          onClick={() => {
+            setIsArchive(!isArchive)
+          }}
+        >
+          Archive
+        </button>
+      ) : (
         <>
-            {
-                isArchive === false ?
-                    (<button onClick={() => { 
-                        setIsArchive(!isArchive); 
-                        
-                    }}>Archive</button>)
-                    :   
-                    (
-                        <>
-                            <button onClick={() => { setIsArchive(!isArchive); }}>UnArchive</button>
-                            <button onClick={() => { deleteTodo(id); }}>Delete</button>
-                        </>
-                    )
-            }
-
+          <button
+            onClick={() => {
+              setIsArchive(!isArchive)
+            }}
+          >
+            UnArchive
+          </button>
+          <button
+            onClick={() => {
+              deleteTodo(id)
+            }}
+          >
+            Delete
+          </button>
         </>
-    );
+      )}
+    </>
+  )
 }
 
-export default TodoArchiveBtn;
+export default TodoArchiveBtn
