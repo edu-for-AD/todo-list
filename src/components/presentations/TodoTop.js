@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { v1 as uuidv1 } from 'uuid'
 
+
 function TodoTop({ addTodo, isEdit }) {
   const [todo, setTodo] = useState('')
   const handleChange = (event) => {
@@ -12,14 +13,15 @@ function TodoTop({ addTodo, isEdit }) {
 
       {isEdit === true ?
         (
+          
           // 현재 Edit상태인경우
           <>
           <input type="text" value={todo} onChange={handleChange} disabled />
           <button disabled>
             add
           </button>
-          
           </>
+
         )
         :
         (
@@ -37,9 +39,6 @@ function TodoTop({ addTodo, isEdit }) {
         </>
         )
       }
-
-
-
     </div>
   )
 }

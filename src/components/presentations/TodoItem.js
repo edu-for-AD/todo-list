@@ -3,10 +3,10 @@ import { useState, useEffect } from 'react'
 import TodoArchiveBtn from "./TodoArchiveBtn"
 import TodoEditBtn from "./TodoEditBtn"
 
-function TodoItem({ id, text, deleteTodo, modifiedTodo, setEdit, Editable }) {
+function TodoItem({ id, text, deleteTodo, modifiedTodo }) {
 
   const [isArchive, setIsArchive] = useState(false)
-  const [isEdit, setIsEdit] = useState(Editable)
+  const [isEdit, setIsEdit] = useState(false)
   const [modifiedText, setModifiedText] = useState(text);
 
 

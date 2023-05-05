@@ -6,7 +6,6 @@ function Todo() {
   //전체 Todo를 저장하는 배열 
   const [todos, setTodos] = useState([]);
 
- 
   //TodoTop  
   const addTodo = (todo) => {
     setTodos([...todos, todo])
