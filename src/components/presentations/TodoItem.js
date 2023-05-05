@@ -4,18 +4,17 @@ function TodoItem({
   id,
   text,
   deleteTodo,
-  archiving,
   editing,
-  setArchivingStatus,
   changeEditingStatus,
   cancelTodo,
   confirmTodo
 }) {
   const [editingTodo, setEditingTodo] = useState('')
+  const [archive, setArchive] = useState(false)
   const [inActive, setInActive] = useState(false)
 
   const handleArchive = () => {
-    setArchivingStatus(id)
+    setArchive((prev) => !prev)
   }
 
   const handleEdit = () => {
@@ -78,7 +77,7 @@ function TodoItem({
           <div
             style={{
               textDecoration: inActive ? 'line-through' : '',
-              opacity: archiving ? '0.3' : ''
+              opacity: archive ? '0.3' : ''
             }}
           >
             {text}
@@ -86,15 +85,15 @@ function TodoItem({
         </>
       )}
 
-      {!archiving && !editing && <button onClick={handleEdit}>edit</button>}
+      {!archive && !editing && <button onClick={handleEdit}>edit</button>}
 
       {!editing && (
         <button onClick={handleArchive}>
-          {!archiving ? 'archive' : 'unarchive'}
+          {!archive ? 'archive' : 'unarchive'}
         </button>
       )}
 
-      {archiving && <button onClick={handleDelete}>delete</button>}
+      {archive && <button onClick={handleDelete}>delete</button>}
 
       {editing && (
         <>
