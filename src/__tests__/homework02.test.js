@@ -30,8 +30,10 @@ describe('Todo', () => {
     expect(screen.getByText('hello 111456')).toBeInTheDocument()
     expect(screen.queryByText('hello 111')).not.toBeInTheDocument()
 
+    const newEditButtons = screen.getAllByText('edit')
+
     // click first edit
-    await user.click(editButtons[0])
+    await user.click(newEditButtons[0])
 
     // then hello 333 should be in the editing input box
     expect(screen.getByDisplayValue('hello 111456')).toBeInTheDocument()
@@ -65,8 +67,11 @@ describe('Todo', () => {
     expect(screen.queryByText('hello 111456')).not.toBeInTheDocument()
     expect(screen.getByText('hello 111')).toBeInTheDocument()
 
+
+    const newEditButtons = screen.getAllByText('edit')
+
     // click first edit
-    await user.click(editButtons[0])
+    await user.click(newEditButtons[0])
 
     // then hello 111 should be in the editing input box
     expect(screen.getByDisplayValue('hello 111')).toBeInTheDocument()
