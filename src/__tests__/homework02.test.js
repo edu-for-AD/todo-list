@@ -67,7 +67,6 @@ describe('Todo', () => {
     expect(screen.queryByText('hello 111456')).not.toBeInTheDocument()
     expect(screen.getByText('hello 111')).toBeInTheDocument()
 
-
     const newEditButtons = screen.getAllByText('edit')
 
     // click first edit
