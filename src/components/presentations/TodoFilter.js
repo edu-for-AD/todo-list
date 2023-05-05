@@ -1,9 +1,14 @@
-function TodoFilter(
-  filterArchive,
-  filterActivate,
-  handleChangeArchive,
-  handleChangeActivate
-) {
+import { useState } from 'react'
+
+function TodoFilter() {
+  const [filterArchive, setFilterArchive] = useState('All')
+  const [filterActivate, setFilterActivate] = useState('All')
+  const handleChangeArchive = (event) => {
+    setFilterArchive(event.target.value)
+  }
+  const handleChangeActivate = (event) => {
+    setFilterActivate(event.target.value)
+  }
   return (
     <div>
       <div style={{ display: 'flex', width: '100%' }}>
@@ -22,7 +27,7 @@ function TodoFilter(
           checked={filterArchive === 'Archived'}
           onChange={handleChangeArchive}
         />
-        Archived
+        Activated
         <input
           type="radio"
           name="filterArchive"
@@ -30,7 +35,7 @@ function TodoFilter(
           checked={filterArchive === 'Unarchived'}
           onChange={handleChangeArchive}
         />
-        Unarchived
+        InActivated
       </div>
       <div style={{ display: 'flex', width: '100%' }}>
         <input
