@@ -1,47 +1,50 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 
-function TodoItem({ todo, editTodo, archiveTodo, deleteTodo }) {
-  const [editTodoText, setEditTodoText] = useState(todo.text) //Edit  - 추가
+import TodoArchiveBtn from "./TodoArchiveBtn"
+import TodoEditBtn from "./TodoEditBtn"
+
+function TodoItem({ id, text, deleteTodo, modifiedTodo, setEdit, Editable }) {
+
+  const [isArchive, setIsArchive] = useState(false)
+  const [isEdit, setIsEdit] = useState(Editable)
+  const [modifiedText, setModifiedText] = useState(text);
+
 
   useEffect(() => {
-    todo.text = editTodoText
-  }, [editTodoText])
+   
+    console.log("TodoItem useEffect id,isEdit : ", id, isEdit);
+   
+    
+    // Todo.js 로 상태정보를 전달
+    setEdit(id,isEdit);
 
-  const InputchangHandle = (e) => {
-    //Edit  - 추가
-    setEditTodoText(e.target.value)
-  }
+
+  }, [isEdit]);
+
+
+
+  // input 내용바뀌면 Todo.js로 바뀐 Text내용 전달 
+  const handleChange = (event) => {
+    setModifiedText(event.target.value);
+  };
 
   return (
     <div style={{ display: 'flex', width: '100%' }}>
       <div>
-        {/* //Edit  - 추가 */}
-        {!todo.isedit ? (
-          <span>{todo.text}</span>
-        ) : (
-          <input value={editTodoText} onChange={InputchangHandle} />
-        )}
+        {
+          isArchive === true ?
+
+            (<span style={{ opacity: 0.5 }}>{text}</span>)
+            :
+            (
+              isEdit === true ? (<input type="text" value={modifiedText} onChange={handleChange} />) : (<span>{text}</span>)
+            )
+        }
       </div>
 
-      {/* edit 버튼 */}
-      <button
-        onClick={() => {
-          editTodo(todo)
-        }}
-      >
-        edit
-      </button>
+      {!isArchive && (<TodoEditBtn id={id} text={modifiedText} isEdit={isEdit} setIsEdit={setIsEdit} modifiedTodo={modifiedTodo} />)}
+      {!isEdit && (<TodoArchiveBtn id={id} isArchive={isArchive} setIsArchive={setIsArchive} deleteTodo={deleteTodo} />)}
 
-      {/* 아카이브 버튼 */}
-      <button onClick={{}}>archive</button>
-
-      {/* <button
-        onClick={() => {
-          deleteTodo(id)
-        }}
-      >
-        delete
-      </button> */}
     </div>
   )
 }

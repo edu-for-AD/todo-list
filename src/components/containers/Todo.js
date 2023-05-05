@@ -1,59 +1,72 @@
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import TodoItem from '../presentations/TodoItem'
 import TodoTop from '../presentations/TodoTop'
 
 function Todo() {
-  const [todos, setTodos] = useState([])
-  const [isedit, setIsedit] = useState(false) //Edit  - 추가
+  //전체 Todo를 저장하는 배열 
+  const [todos, setTodos] = useState([]);
 
-  // 글추가
-  const addTodo = (todo) => {
-    todo.isedit = false //Edit  - 추가
-    todo.isarchive = false //Edit  - 추가
-    setTodos([...todos, todo])
+  //현재 Edit Todo 의 id,isEdit 상태 저장
+  const [edit, setEdit] = useState({});
+
+
+  useEffect(() => {
+    console.log("Todo useEffect edit : ", edit.id,edit.isEdit);
+  }, [edit]);
+
+  const RecvEdit = (id,isEdit)=>{
+    console.log("Todo RecvEdit edit : ", id,isEdit);
+    setEdit({id,isEdit});
   }
 
-  // 글삭제
+
+  //TodoTop  
+  const addTodo = (todo) => {
+    setTodos([...todos, todo])
+  }
+  //TodoItem
   const deleteTodo = (id) => {
     setTodos((prev) => prev.filter((todo) => todo.id !== id))
   }
+  //TodoItem
+  const modifiedTodo = (id, text) => {
+    setTodos((prev) =>
+      prev.map((todo) =>
+        todo.id === id
+          ? { ...todo, text: text } // 해당 id의 todo를 복사하고, text 값을 변경하여 반환
+          : todo // id가 일치하지 않으면 그대로 반환
+      )
+    );
+  };
 
-  // 글수정 //Edit  - 추가
-  const editTodo = (todo) => {
-    todos.map((prev) => {
-      if (prev.id === todo.id) {
-        prev.isedit = !prev.isedit
 
-        if (isedit) {
-          prev.text = todo.text
-        }
-        setIsedit(!isedit)
-
-        console.log('editTodo', todo)
-        return
-      }
-    })
-  }
-
-  // 휴지통(아카이브)
-  const archiveTodo = (id) => {}
 
   return (
     <div>
-      <TodoTop addTodo={addTodo} />
+      <TodoTop addTodo={addTodo} isEdit={edit.isEdit} />
       {todos.map((todo) => (
-        <TodoItem //Edit  - 수정
-          // key={todo.id}
-          // id={todo.id}
-          // text={todo.text}
-          // isedit={todo.isedit}
-          // isachive={todo.isachive}
-          key={todo.id}
-          todo={todo}
-          editTodo={editTodo}
-          archiveTodo={archiveTodo}
-          deleteTodo={deleteTodo}
-        />
+
+        edit.id === todo.id ?
+          <TodoItem
+            key={todo.id}
+            id={todo.id}
+            text={todo.text}
+            deleteTodo={deleteTodo}
+            modifiedTodo={modifiedTodo}
+            setEdit={RecvEdit}
+            Editable={true}
+          />
+          :
+          <TodoItem
+            key={todo.id}
+            id={todo.id}
+            text={todo.text}
+            deleteTodo={deleteTodo}
+            modifiedTodo={modifiedTodo}
+            setEdit={RecvEdit}
+            Editable={false}
+          />
+
       ))}
     </div>
   )
