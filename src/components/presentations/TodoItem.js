@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
 
 import TodoArchiveBtn from "./TodoArchiveBtn"
 import TodoEditBtn from "./TodoEditBtn"
@@ -10,16 +10,7 @@ function TodoItem({ id, text, deleteTodo, modifiedTodo, setEdit, Editable }) {
   const [modifiedText, setModifiedText] = useState(text);
 
 
-  useEffect(() => {
-   
-    console.log("TodoItem useEffect id,isEdit : ", id, isEdit);
-   
-    
-    // Todo.js 로 상태정보를 전달
-    setEdit(id,isEdit);
-
-
-  }, [isEdit]);
+  
 
 
 

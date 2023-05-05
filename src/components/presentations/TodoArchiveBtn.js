@@ -1,8 +1,6 @@
 
 function TodoArchiveBtn({ id,isArchive, setIsArchive,deleteTodo }) {
-    const handlefunction = () => {
 
-    }
     return (
         <>
             {
