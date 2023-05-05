@@ -25,35 +25,35 @@ function TodoItem({ id, text, deleteTodo, modifiedTodo }) {
         )}
       </div>
 
-      {!isArchive && 
-      (isEdit === false ? (
-        <button
-          onClick={() => {
-            setIsEdit(!isEdit)
-          }}
-        >
-          Edit
-        </button>
-      ) : (
-        <>
-          <button
-            onClick={() => {
-              modifiedTodo(id, text)
-              setIsEdit(!isEdit)
-            }}
-          >
-            confirm
-          </button>
+      {!isArchive &&
+        (isEdit === false ? (
           <button
             onClick={() => {
               setIsEdit(!isEdit)
             }}
           >
-            Cancel
+            Edit
           </button>
-        </>
-      ))}
-      
+        ) : (
+          <>
+            <button
+              onClick={() => {
+                modifiedTodo(id, text)
+                setIsEdit(!isEdit)
+              }}
+            >
+              confirm
+            </button>
+            <button
+              onClick={() => {
+                setIsEdit(!isEdit)
+              }}
+            >
+              Cancel
+            </button>
+          </>
+        ))}
+
       {!isEdit && (
         <TodoArchiveBtn
           id={id}
