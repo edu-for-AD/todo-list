@@ -17,7 +17,7 @@ function TodoItem({ id, text, deleteTodo, modifiedTodo }) {
     <div style={{ display: 'flex', width: '100%' }}>
       <div>
         {isArchive === true ? (
-          <span style={{ opacity: 0.5 }}>{text}</span>
+          <span style={{ opacity: 0.3 }}>{text}</span>
         ) : isEdit === true ? (
           <input type="text" value={modifiedText} onChange={handleChange} />
         ) : (
@@ -25,15 +25,35 @@ function TodoItem({ id, text, deleteTodo, modifiedTodo }) {
         )}
       </div>
 
-      {!isArchive && (
-        <TodoEditBtn
-          id={id}
-          text={modifiedText}
-          isEdit={isEdit}
-          setIsEdit={setIsEdit}
-          modifiedTodo={modifiedTodo}
-        />
-      )}
+      {!isArchive && 
+      (isEdit === false ? (
+        <button
+          onClick={() => {
+            setIsEdit(!isEdit)
+          }}
+        >
+          Edit
+        </button>
+      ) : (
+        <>
+          <button
+            onClick={() => {
+              modifiedTodo(id, text)
+              setIsEdit(!isEdit)
+            }}
+          >
+            confirm
+          </button>
+          <button
+            onClick={() => {
+              setIsEdit(!isEdit)
+            }}
+          >
+            Cancel
+          </button>
+        </>
+      ))}
+      
       {!isEdit && (
         <TodoArchiveBtn
           id={id}
