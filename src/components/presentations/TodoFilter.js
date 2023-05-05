@@ -1,10 +1,11 @@
 import { useState } from 'react'
 
-function TodoFilter() {
+function TodoFilter({ displayArchiving }) {
   const [filterArchive, setFilterArchive] = useState('All')
   const [filterActivate, setFilterActivate] = useState('All')
   const handleChangeArchive = (event) => {
     setFilterArchive(event.target.value)
+    displayArchiving()
   }
   const handleChangeActivate = (event) => {
     setFilterActivate(event.target.value)

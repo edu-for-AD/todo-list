@@ -9,12 +9,19 @@ function Todo() {
   const archiving = ''
   const activating = ''
 
+  // eslint-disable-next-line no-console
+  console.log(todos)
   const addTodo = (todo) => {
     setTodos([...todos, todo])
   }
 
   const deleteTodo = (id) => {
     setTodos((prev) => prev.filter((todo) => todo.id !== id))
+  }
+
+  const displayArchiving = (id) => {
+    // eslint-disable-next-line no-console
+    console.log('run')
   }
 
   const changeEditingStatus = (id) => {
@@ -80,7 +87,7 @@ function Todo() {
         archiving={archiving}
         activating={activating}
       />
-      <TodoFilter />
+      <TodoFilter displayArchiving={displayArchiving} />
       {todos.map((todo) => (
         <TodoItem
           key={todo.id}
