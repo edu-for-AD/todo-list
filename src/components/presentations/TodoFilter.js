@@ -27,7 +27,7 @@ function TodoFilter() {
           checked={filterArchive === 'Archived'}
           onChange={handleChangeArchive}
         />
-        Activated
+        Archived
         <input
           type="radio"
           name="filterArchive"
@@ -35,7 +35,7 @@ function TodoFilter() {
           checked={filterArchive === 'Unarchived'}
           onChange={handleChangeArchive}
         />
-        InActivated
+        Unarchived
       </div>
       <div style={{ display: 'flex', width: '100%' }}>
         <input
@@ -61,7 +61,7 @@ function TodoFilter() {
           checked={filterActivate === 'Inactivated'}
           onChange={handleChangeActivate}
         />
-        InActivated
+        Inactivated
       </div>
     </div>
   )
