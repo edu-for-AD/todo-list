@@ -26,9 +26,9 @@ function Todo() {
       if (filterActivate === 'all') {
         return todos
       } else if (filterActivate === 'activated') {
-        return todo.activated === true
-      } else if (filterActivate === 'inactivated') {
         return todo.activated === false
+      } else if (filterActivate === 'inactivated') {
+        return todo.activated === true
       }
       return todos
     })
