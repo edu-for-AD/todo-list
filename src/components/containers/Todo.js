@@ -17,17 +17,17 @@ function Todo() {
     filterTodos = todos
   }
   if (filterArchive === 'Archived') {
-    filterTodos = todos.filter((todo) => todo.archiving === true)
+    filterTodos = todos.filter((todo) => todo.archived === true)
   }
   if (filterArchive === 'Unarchived') {
-    filterTodos = todos.filter((todo) => todo.archiving === false)
+    filterTodos = todos.filter((todo) => todo.archived === false)
   }
 
   if (filterActivate === 'Activated') {
-    filterTodos = todos.filter((todo) => todo.activating === true)
+    filterTodos = todos.filter((todo) => todo.activated === true)
   }
   if (filterActivate === 'Inactivated') {
-    filterTodos = todos.filter((todo) => todo.activating === false)
+    filterTodos = todos.filter((todo) => todo.activated === false)
   }
 
   const addTodo = (todo) => {
@@ -55,11 +55,11 @@ function Todo() {
     )
   }
 
-  const changeArchivingStatus = (id) => {
+  const changeArchiveStatus = (id) => {
     setTodos((todos) =>
       todos.map((todo) => {
         if (todo.id === id) {
-          return { ...todo, archiving: !todo.archiving }
+          return { ...todo, archived: !todo.archived }
         }
 
         return todo
@@ -67,11 +67,11 @@ function Todo() {
     )
   }
 
-  const changeActivatingStatus = (id) => {
+  const changeActivateStatus = (id) => {
     setTodos((todos) =>
       todos.map((todo) => {
         if (todo.id === id) {
-          return { ...todo, activating: !todo.activating }
+          return { ...todo, activated: !todo.activated }
         }
 
         return todo
@@ -114,10 +114,10 @@ function Todo() {
           editing={todo.editing}
           cancelTodo={cancelTodo}
           changeEditingStatus={changeEditingStatus}
-          changeArchivingStatus={changeArchivingStatus}
-          changeActivatingStatus={changeActivatingStatus}
-          archiving={todo.archiving}
-          activating={todo.activating}
+          changeArchiveStatus={changeArchiveStatus}
+          changeActivateStatus={changeActivateStatus}
+          archived={todo.archived}
+          activated={todo.activated}
         />
       ))}
     </div>

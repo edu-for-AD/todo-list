@@ -21,8 +21,8 @@ function TodoTop({ addTodo, editing }) {
             id: uuidv1(),
             text: todo,
             editing: false,
-            archiving: false,
-            activating: false
+            archived: false,
+            activated: false
           })
           setTodo('')
         }}

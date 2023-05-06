@@ -16,7 +16,7 @@ function TodoFilter({
         <input
           type="radio"
           name="filterArchive"
-          value="All"
+          value="all"
           checked={filterArchive === 'All'}
           onChange={handleChangeArchive}
         />
@@ -24,7 +24,7 @@ function TodoFilter({
         <input
           type="radio"
           name="filterArchive"
-          value="Archived"
+          value="archived"
           checked={filterArchive === 'Archived'}
           onChange={handleChangeArchive}
         />
@@ -32,7 +32,7 @@ function TodoFilter({
         <input
           type="radio"
           name="filterArchive"
-          value="Unarchived"
+          value="unarchived"
           checked={filterArchive === 'Unarchived'}
           onChange={handleChangeArchive}
         />
@@ -42,7 +42,7 @@ function TodoFilter({
         <input
           type="radio"
           name="filterActivate"
-          value="All"
+          value="all"
           checked={filterActivate === 'All'}
           onChange={handleChangeActivate}
         />
@@ -50,7 +50,7 @@ function TodoFilter({
         <input
           type="radio"
           name="filterActivate"
-          value="Activated"
+          value="activated"
           checked={filterActivate === 'Activated'}
           onChange={handleChangeActivate}
         />
@@ -58,7 +58,7 @@ function TodoFilter({
         <input
           type="radio"
           name="filterActivate"
-          value="Inactivated"
+          value="inactivated"
           checked={filterActivate === 'Inactivated'}
           onChange={handleChangeActivate}
         />
