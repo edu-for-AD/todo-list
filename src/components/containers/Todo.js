@@ -11,28 +11,30 @@ function Todo() {
 
   const editing = todos.some((todo) => todo.editing === true)
 
-  let filterTodos = todos
-
-  if (filterArchive === 'All' || filterActivate === 'All') {
-    filterTodos = todos
-  }
-  if (filterArchive === 'Archived') {
-    filterTodos = todos.filter((todo) => todo.archived === true)
-  }
-  if (filterArchive === 'Unarchived') {
-    filterTodos = todos.filter((todo) => todo.archived === false)
-  }
-
-  if (filterActivate === 'Activated') {
-    filterTodos = todos.filter((todo) => todo.activated === true)
-  }
-  if (filterActivate === 'Inactivated') {
-    filterTodos = todos.filter((todo) => todo.activated === false)
-  }
+  const filterTodos = todos
+    .filter((todo) => {
+      if (filterArchive === 'All') {
+        return todos
+      } else if (filterArchive === 'Archived') {
+        return todo.archived === true
+      } else if (filterArchive === 'Unarchived') {
+        return todo.archived === false
+      }
+      return todos
+    })
+    .filter((todo) => {
+      if (filterActivate === 'All') {
+        return todos
+      } else if (filterActivate === 'Activated') {
+        return todo.activated === true
+      } else if (filterActivate === 'Inactivated') {
+        return todo.activated === false
+      }
+      return todos
+    })
 
   const addTodo = (todo) => {
     setTodos([...todos, todo])
-    // setFilterTodos(todos)
   }
 
   const deleteTodo = (id) => {
