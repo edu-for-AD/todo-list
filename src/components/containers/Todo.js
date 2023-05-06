@@ -5,23 +5,18 @@ import TodoFilter from '../presentations/TodoFilter'
 
 function Todo() {
   const [todos, setTodos] = useState([])
-  const editing = todos.some((todo) => todo.editing === true)
-  const archiving = ''
-  const activating = ''
 
-  // eslint-disable-next-line no-console
-  console.log(todos)
+  const [filterArchive, setFilterArchive] = useState('All')
+  const [filterActivate, setFilterActivate] = useState('All')
+
+  const editing = todos.some((todo) => todo.editing === true)
+
   const addTodo = (todo) => {
     setTodos([...todos, todo])
   }
 
   const deleteTodo = (id) => {
     setTodos((prev) => prev.filter((todo) => todo.id !== id))
-  }
-
-  const displayArchiving = (id) => {
-    // eslint-disable-next-line no-console
-    console.log('run')
   }
 
   const changeEditingStatus = (id) => {
@@ -81,13 +76,14 @@ function Todo() {
 
   return (
     <div>
-      <TodoTop
-        addTodo={addTodo}
-        editing={editing}
-        archiving={archiving}
-        activating={activating}
+      <TodoTop addTodo={addTodo} editing={editing} />
+      <TodoFilter
+        filterArchive={filterArchive}
+        setFilterArchive={setFilterArchive}
+        filterActivate={filterActivate}
+        setFilterActivate={setFilterActivate}
       />
-      <TodoFilter displayArchiving={displayArchiving} />
+
       {todos.map((todo) => (
         <TodoItem
           key={todo.id}

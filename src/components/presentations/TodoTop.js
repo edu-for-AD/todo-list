@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { v1 as uuidv1 } from 'uuid'
 
-function TodoTop({ addTodo, editing, archiving, activating }) {
+function TodoTop({ addTodo, editing }) {
   const [todo, setTodo] = useState('')
   const handleChange = (event) => {
     setTodo(event.target.value)
