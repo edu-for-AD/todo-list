@@ -13,22 +13,22 @@ function Todo() {
 
   const filterTodos = todos
     .filter((todo) => {
-      if (filterArchive === 'all') {
-        return todos
-      } else if (filterArchive === 'archived') {
-        return todo.archived === true
-      } else if (filterArchive === 'unarchived') {
-        return todo.archived === false
+      if (filterArchive === 'archived') {
+        return todo.archived
+      }
+
+      if (filterArchive === 'unarchived') {
+        return !todo.archived
       }
       return todos
     })
     .filter((todo) => {
-      if (filterActivate === 'all') {
-        return todos
-      } else if (filterActivate === 'activated') {
-        return todo.activated === false
-      } else if (filterActivate === 'inactivated') {
-        return todo.activated === true
+      if (filterActivate === 'activated') {
+        return !todo.activated
+      }
+
+      if (filterActivate === 'inactivated') {
+        return todo.activated
       }
       return todos
     })
