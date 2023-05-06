@@ -6,28 +6,28 @@ import TodoFilter from '../presentations/TodoFilter'
 function Todo() {
   const [todos, setTodos] = useState([])
 
-  const [filterArchive, setFilterArchive] = useState('all')
-  const [filterActivate, setFilterActivate] = useState('all')
+  const [filterArchive, setFilterArchive] = useState('All')
+  const [filterActivate, setFilterActivate] = useState('All')
 
   const editing = todos.some((todo) => todo.editing === true)
 
   const filterTodos = todos
     .filter((todo) => {
-      if (filterArchive === 'all') {
+      if (filterArchive === 'All') {
         return todos
-      } else if (filterArchive === 'archived') {
+      } else if (filterArchive === 'Archived') {
         return todo.archived === true
-      } else if (filterArchive === 'unarchived') {
+      } else if (filterArchive === 'Unarchived') {
         return todo.archived === false
       }
       return todos
     })
     .filter((todo) => {
-      if (filterActivate === 'all') {
+      if (filterActivate === 'All') {
         return todos
-      } else if (filterActivate === 'activated') {
+      } else if (filterActivate === 'Activated') {
         return todo.activated === true
-      } else if (filterActivate === 'inactivated') {
+      } else if (filterActivate === 'Inactivated') {
         return todo.activated === false
       }
       return todos
