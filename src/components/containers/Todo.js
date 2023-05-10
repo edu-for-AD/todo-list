@@ -6,7 +6,6 @@ function Todo() {
   const [todos, setTodos] = useState([])
 
   const IsEditing = todos.some((todo) => todo.isEdit === true)
-  const editTodo = todos.find((todo) => todo.isEdit === true)
 
   const addTodo = (todo) => {
     setTodos([...todos, todo])
@@ -60,7 +59,6 @@ function Todo() {
           text={todo.text}
           isEdit={todo.isEdit}
           isArchive={todo.isArchive}
-          editTodo={editTodo}
           changeTodo={changeTodo}
           deleteTodo={deleteTodo}
           changeIsEdit={changeIsEdit}

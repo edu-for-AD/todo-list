@@ -1,29 +1,33 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 function TodoItem({
   id,
   text,
   isEdit,
   isArchive,
-  editTodo,
   changeTodo,
   deleteTodo,
   changeIsEdit,
   changeIsArchive
 }) {
   const [editText, setEditText] = useState(text)
+  const [prevText, setPrevText] = useState(editText)
 
   const handleisEdit = () => {
-    setEditText(text)
+    if (isEdit) {
+      setEditText(text)
+      setPrevText(editText)
+    }
     changeIsEdit(id)
   }
 
   const handleisConfirm = () => {
     changeTodo(editText)
+    setPrevText(editText)
+
     changeIsEdit(id)
   }
   const handleCancel = () => {
-    setEditText(text)
     changeIsEdit(id)
   }
   const handleisArchive = () => {
@@ -33,6 +37,7 @@ function TodoItem({
   const handleTextChange = (event) => {
     setEditText(event.target.value)
   }
+
   const handleDelete = () => {
     deleteTodo(id)
   }
@@ -41,7 +46,7 @@ function TodoItem({
     <div style={{ display: 'flex', width: '100%' }}>
       {!isArchive && !isEdit && (
         <>
-          <div>{editText}</div>
+          <div>{prevText}</div>
           <button onClick={handleisEdit}>edit</button>
           <button onClick={handleisArchive}>archive</button>
         </>
@@ -49,6 +54,7 @@ function TodoItem({
       {!isArchive && isEdit && (
         <>
           <input type="text" value={editText} onChange={handleTextChange} />
+
           <button onClick={handleisConfirm}>confirm</button>
           <button onClick={handleCancel}>cancel</button>
         </>
