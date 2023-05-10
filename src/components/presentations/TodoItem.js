@@ -16,7 +16,8 @@ function TodoItem({
   const handleisEdit = () => {
     if (isEdit) {
       setEditText(text)
-      setPrevText(editText)
+    } else {
+      setEditText(prevText)
     }
     changeIsEdit(id)
   }
@@ -28,6 +29,7 @@ function TodoItem({
     changeIsEdit(id)
   }
   const handleCancel = () => {
+    setEditText(text)
     changeIsEdit(id)
   }
   const handleisArchive = () => {
