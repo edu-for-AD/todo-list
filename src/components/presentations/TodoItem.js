@@ -57,8 +57,6 @@ function TodoItem({
           <button onClick={handleDelete}>delete</button>
         </>
       )}
-
-    
     </div>
   )
 }
