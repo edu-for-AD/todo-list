@@ -33,8 +33,8 @@ function TodoItem({
       {!isArchive && !isEdit && (
         <>
           <div>{editText}</div>
-          <button onClick={handleisEdit}>Edit</button>
-          <button onClick={handleisArchive}>Archive</button>
+          <button onClick={handleisEdit}>edit</button>
+          <button onClick={handleisArchive}>archive</button>
         </>
       )}
       {!isArchive && isEdit && (
@@ -53,18 +53,12 @@ function TodoItem({
       {isArchive && (
         <>
           <div style={{ opacity: 0.3 }}>{editText}</div>
-          <button onClick={handleisArchive}>unArchive</button>
+          <button onClick={handleisArchive}>unarchive</button>
           <button onClick={handleDelete}>delete</button>
         </>
       )}
 
-      {/* <button
-        onClick={() => {
-          deleteTodo(id)
-        }}
-      >
-        delete
-      </button> */}
+    
     </div>
   )
 }
