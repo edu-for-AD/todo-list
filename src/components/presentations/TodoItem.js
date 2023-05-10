@@ -14,7 +14,7 @@ function TodoItem({
   const [editText, setEditText] = useState(text)
 
   const handleisEdit = () => {
-    changeTodo(text)
+    setEditText(text)
     changeIsEdit(id)
   }
 
