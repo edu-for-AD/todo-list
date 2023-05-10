@@ -11,19 +11,31 @@ function TodoTop({ addTodo, editTodo }) {
   return (
     <div style={{ display: 'flex', width: '100%' }}>
       {editTodo === false ? (
-        <input type="text" value={todo} onChange={handleChange} />
+        <>
+          <input type="text" value={todo} onChange={handleChange} />
+          <button
+            onClick={() => {
+              addTodo({ id: uuidv1(), text: todo, isEdit: false })
+              setTodo('')
+            }}
+          >
+            add
+          </button>
+        </>
       ) : (
-        <input type="text" value={todo} onChange={handleChange} disabled />
+        <>
+          <input type="text" value={todo} onChange={handleChange} disabled />
+          <button
+            onClick={() => {
+              addTodo({ id: uuidv1(), text: todo, isEdit: false })
+              setTodo('')
+            }}
+            disabled
+          >
+            add
+          </button>
+        </>
       )}
-
-      <button
-        onClick={() => {
-          addTodo({ id: uuidv1(), text: todo, isEdit: false })
-          setTodo('')
-        }}
-      >
-        add
-      </button>
     </div>
   )
 }
