@@ -3,40 +3,66 @@ import TodoItem from '../presentations/TodoItem'
 import TodoTop from '../presentations/TodoTop'
 
 function Todo() {
-  //전체 Todo를 저장하는 배열
   const [todos, setTodos] = useState([])
 
-  //TodoTop
+  const editTodo = todos.some((todo) => todo.isEdit === true)
+
   const addTodo = (todo) => {
     setTodos([...todos, todo])
   }
 
-  //TodoItem
   const deleteTodo = (id) => {
     setTodos((prev) => prev.filter((todo) => todo.id !== id))
   }
-  //TodoItem
-  const modifiedTodo = (id, text) => {
+
+  const changeIsArchive = (id) => {
+    setTodos((todos) =>
+      todos.map((todo) => {
+        if (todo.id === id) {
+          return { ...todo, isArchive: !todo.isArchive }
+        }
+        if (todo.isEdit === true) {
+          return { ...todo, isArchive: false }
+        }
+        return todo
+      })
+    )
+  }
+  const changeIsEdit = (id) => {
+    setTodos((todos) =>
+      todos.map((todo) => {
+        if (todo.id === id) {
+          return { ...todo, isEdit: !todo.isEdit }
+        }
+        if (todo.isEdit === true) {
+          return { ...todo, isEdit: false }
+        }
+        return todo
+      })
+    )
+  }
+
+  const changeTodo = (id, text) => {
     setTodos((prev) =>
-      prev.map(
-        (todo) =>
-          todo.id === id
-            ? { ...todo, text: text } // 해당 id의 todo를 복사하고, text 값을 변경하여 반환
-            : todo // id가 일치하지 않으면 그대로 반환
-      )
+      prev.map((todo) => (todo.id === id ? { ...todo, text: text } : todo))
     )
   }
 
   return (
     <div>
-      <TodoTop addTodo={addTodo} />
+      <TodoTop addTodo={addTodo} editTodo={editTodo} />
+
       {todos.map((todo) => (
         <TodoItem
           key={todo.id}
           id={todo.id}
           text={todo.text}
+          isEdit={todo.isEdit}
+          isArchive={todo.isArchive}
+          changeTodo={changeTodo}
           deleteTodo={deleteTodo}
-          modifiedTodo={modifiedTodo}
+          changeIsEdit={changeIsEdit}
+          changeIsArchive={changeIsArchive}
         />
       ))}
     </div>
