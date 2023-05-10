@@ -5,7 +5,8 @@ import TodoTop from '../presentations/TodoTop'
 function Todo() {
   const [todos, setTodos] = useState([])
 
-  const editTodo = todos.some((todo) => todo.isEdit === true)
+  const IsEditing = todos.some((todo) => todo.isEdit === true)
+  const editTodo = todos.find((todo) => todo.isEdit === true)
 
   const addTodo = (todo) => {
     setTodos([...todos, todo])
@@ -50,7 +51,7 @@ function Todo() {
 
   return (
     <div>
-      <TodoTop addTodo={addTodo} editTodo={editTodo} />
+      <TodoTop addTodo={addTodo} IsEditing={IsEditing} />
 
       {todos.map((todo) => (
         <TodoItem

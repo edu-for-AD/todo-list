@@ -14,11 +14,17 @@ function TodoItem({
   const [editText, setEditText] = useState(text)
 
   const handleisEdit = () => {
+    changeTodo(text)
     changeIsEdit(id)
   }
-  const handleisEditCancel = () => {
+
+  const handleisConfirm = () => {
+    changeTodo(editText)
     changeIsEdit(id)
+  }
+  const handleCancel = () => {
     setEditText(text)
+    changeIsEdit(id)
   }
   const handleisArchive = () => {
     changeIsArchive(id)
@@ -43,8 +49,8 @@ function TodoItem({
       {!isArchive && isEdit && (
         <>
           <input type="text" value={editText} onChange={handleTextChange} />
-          <button onClick={handleisEdit}>confirm</button>
-          <button onClick={handleisEditCancel}>cancel</button>
+          <button onClick={handleisConfirm}>confirm</button>
+          <button onClick={handleCancel}>cancel</button>
         </>
       )}
       {isArchive && (

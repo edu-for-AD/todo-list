@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { v1 as uuidv1 } from 'uuid'
 
-function TodoTop({ addTodo, editTodo }) {
+function TodoTop({ addTodo, IsEditing }) {
   const [todo, setTodo] = useState('')
 
   const handleChange = (event) => {
@@ -10,7 +10,7 @@ function TodoTop({ addTodo, editTodo }) {
 
   return (
     <div style={{ display: 'flex', width: '100%' }}>
-      {editTodo === false ? (
+      {IsEditing === false ? (
         <>
           <input type="text" value={todo} onChange={handleChange} />
           <button
