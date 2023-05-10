@@ -5,6 +5,7 @@ function TodoItem({
   text,
   isEdit,
   isArchive,
+  editTodo,
   changeTodo,
   deleteTodo,
   changeIsEdit,
@@ -14,9 +15,11 @@ function TodoItem({
 
   const handleisEdit = () => {
     changeIsEdit(id)
-    changeTodo(id, editText)
   }
-
+  const handleisEditCancel = () => {
+    changeIsEdit(id)
+    setEditText(text)
+  }
   const handleisArchive = () => {
     changeIsArchive(id)
   }
@@ -40,14 +43,8 @@ function TodoItem({
       {!isArchive && isEdit && (
         <>
           <input type="text" value={editText} onChange={handleTextChange} />
-          <button
-            onClick={() => {
-              handleisEdit()
-            }}
-          >
-            confirm
-          </button>
-          <button onClick={handleisEdit}>cancel</button>
+          <button onClick={handleisEdit}>confirm</button>
+          <button onClick={handleisEditCancel}>cancel</button>
         </>
       )}
       {isArchive && (

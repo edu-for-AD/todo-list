@@ -59,6 +59,7 @@ function Todo() {
           text={todo.text}
           isEdit={todo.isEdit}
           isArchive={todo.isArchive}
+          editTodo={editTodo}
           changeTodo={changeTodo}
           deleteTodo={deleteTodo}
           changeIsEdit={changeIsEdit}
