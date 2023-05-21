@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 function TodoItem({
   id,
@@ -15,21 +15,16 @@ function TodoItem({
 }) {
   const [editingTodo, setEditingTodo] = useState('')
 
+  useEffect(() => {
+    setEditingTodo(text)
+  }, [editing])
+
   const handleArchive = () => {
     changeArchiveStatus(id)
   }
 
-  const handleEdit = () => {
-    changeEditingStatus(id)
-    setEditingTodo(text)
-  }
   const handleConfirm = () => {
     confirmTodo(id, editingTodo)
-  }
-
-  const handleCancel = () => {
-    cancelTodo(id)
-    setEditingTodo(text)
   }
 
   const handleDelete = () => {
@@ -53,7 +48,7 @@ function TodoItem({
         break
 
       case 'Escape':
-        handleCancel()
+        cancelTodo(id)
         break
 
       default:
@@ -87,7 +82,9 @@ function TodoItem({
         </>
       )}
 
-      {!archived && !editing && <button onClick={handleEdit}>edit</button>}
+      {!archived && !editing && (
+        <button onClick={() => changeEditingStatus(id)}>edit</button>
+      )}
 
       {!editing && (
         <button onClick={handleArchive}>
@@ -100,7 +97,7 @@ function TodoItem({
       {editing && (
         <>
           <button onClick={handleConfirm}>confirm</button>
-          <button onClick={handleCancel}>cancel</button>
+          <button onClick={() => cancelTodo(id)}>cancel</button>
         </>
       )}
     </div>
