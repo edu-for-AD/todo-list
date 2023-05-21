@@ -16,8 +16,10 @@ function TodoItem({
   const [editingTodo, setEditingTodo] = useState('')
 
   useEffect(() => {
-    setEditingTodo(text)
-  }, [editing])
+    if (!editing) {
+      setEditingTodo(text)
+    }
+  }, [editing, text])
 
   const handleArchive = () => {
     changeArchiveStatus(id)
