@@ -2,12 +2,18 @@ import { useEffect, useState } from 'react'
 import TodoItem from '../presentations/TodoItem'
 import TodoTop from '../presentations/TodoTop'
 import TodoFilter from '../presentations/TodoFilter'
+import { useSearchParams } from 'react-router-dom'
 
 function Todo() {
   const [todos, setTodos] = useState([])
 
+  const [searchParams, setSearchParams] = useSearchParams()
+
   const [filterArchive, setFilterArchive] = useState('all')
+
+  // searchParams.get('filterArchiveStatus')
   const [filterComplete, setFilterComplete] = useState('all')
+  // searchParams.get('filterCompleteStatus')
 
   const editing = todos.some((todo) => todo.editing === true)
 
@@ -33,14 +39,6 @@ function Todo() {
       return todos
     })
 
-  useEffect(() => {
-    fetch(`http://localhost:8080/api/todos`)
-      .then((response) => response.json())
-      .then((result) => {
-        setTodos(result.data)
-      })
-  }, [])
-
   const addTodo = (todo) => {
     fetch(`http://localhost:8080/api/todos`, {
       method: 'POST',
@@ -51,7 +49,7 @@ function Todo() {
     })
       .then((response) => response.json())
       .then((result) => {
-        setTodos([...todos, result.data])
+        setTodos([...todos, result])
       })
   }
 
@@ -90,11 +88,11 @@ function Todo() {
       body: JSON.stringify({ archived: !archived })
     })
       .then((response) => response.json())
-      .then((result) => {
+      .then((updatedTodo) => {
         setTodos((todos) =>
           todos.map((todo) => {
             if (todo.id === id) {
-              return { ...todo, archived: !todo.archived }
+              return updatedTodo
             }
 
             return todo
@@ -112,11 +110,11 @@ function Todo() {
       body: JSON.stringify({ completed: !completed })
     })
       .then((response) => response.json())
-      .then((result) => {
+      .then((updatedTodo) => {
         setTodos((todos) =>
           todos.map((todo) => {
             if (todo.id === id) {
-              return { ...todo, completed: !todo.completed }
+              return updatedTodo
             }
 
             return todo
@@ -149,6 +147,45 @@ function Todo() {
         )
       })
   }
+  useEffect(() => {
+    const getArchiveParams = searchParams.get('filterArchiveStatus')
+    const getCompleteParams = searchParams.get('filterCompleteStatus')
+    // eslint-disable-next-line no-console
+    console.log('what ' + getArchiveParams, getCompleteParams)
+
+    if (getArchiveParams === null) {
+      // eslint-disable-next-line no-console
+      console.log('not exist !')
+      // setFilterArchive('all')
+      // setFilterComplete('all')
+      setSearchParams({
+        filterArchiveStatus: 'all',
+        filterCompleteStatus: 'all'
+      })
+    } else if (
+      getArchiveParams !== 'all' &&
+      getArchiveParams !== 'archived' &&
+      getArchiveParams !== 'unarchived'
+    ) {
+      // eslint-disable-next-line no-console
+      console.log('invalid !')
+      setSearchParams({
+        filterArchiveStatus: 'all',
+        filterCompleteStatus: 'all'
+      })
+      setFilterArchive(getArchiveParams)
+      setFilterComplete(getCompleteParams)
+    } else {
+      // eslint-disable-next-line no-console
+      console.log('valid !')
+    }
+
+    fetch(`http://localhost:8080/api/todos`)
+      .then((response) => response.json())
+      .then((result) => {
+        setTodos(result)
+      })
+  }, [])
 
   return (
     <div>
@@ -158,6 +195,10 @@ function Todo() {
         setFilterArchive={setFilterArchive}
         filterComplete={filterComplete}
         setFilterComplete={setFilterComplete}
+        // query={query}
+        // setQuery={setQuery}
+        searchParams={searchParams}
+        setSearchParams={setSearchParams}
       />
 
       {filterTodos.map((todo) => (

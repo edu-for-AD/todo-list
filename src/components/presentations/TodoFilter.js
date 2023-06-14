@@ -2,7 +2,11 @@ function TodoFilter({
   filterArchive,
   setFilterArchive,
   filterComplete,
-  setFilterComplete
+  setFilterComplete,
+  // query,
+  // setQuery,
+  searchParams,
+  setSearchParams
 }) {
   const handleArchive = (event) => {
     setFilterArchive(event.target.value)
