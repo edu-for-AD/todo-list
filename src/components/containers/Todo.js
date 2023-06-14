@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import TodoItem from '../presentations/TodoItem'
 import TodoTop from '../presentations/TodoTop'
 import TodoFilter from '../presentations/TodoFilter'
@@ -33,12 +33,47 @@ function Todo() {
       return todos
     })
 
+  useEffect(() => {
+    fetch(`http://localhost:8080/api/todos`)
+      .then((response) => response.json())
+      // eslint-disable-next-line no-console
+      .then((result) => {
+        setTodos(result.data)
+        // eslint-disable-next-line no-console
+        console.log(result.data)
+      })
+  }, [])
+
   const addTodo = (todo) => {
-    setTodos([...todos, todo])
+    // setTodos([...todos, todo])
+
+    fetch(`http://localhost:8080/api/todos`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ title: todo.text })
+    })
+      .then((response) => response.json())
+      .then((result) => {
+        // result is { success: boolean, data: created todo item }
+        setTodos([...todos, todo])
+        // eslint-disable-next-line no-console
+        console.log('POST', result)
+      })
   }
 
   const deleteTodo = (id) => {
-    setTodos((prev) => prev.filter((todo) => todo.id !== id))
+    fetch(`http://localhost:8080/api/todos/496`, {
+      method: 'DELETE'
+    })
+      .then((response) => response.json())
+      .then((result) => {
+        // result is { success: boolean, data: deleted todo item }
+        // eslint-disable-next-line no-console
+        console.log('DELETE', result)
+        setTodos((prev) => prev.filter((todo) => todo.id !== id))
+      })
   }
 
   const changeEditingStatus = (id) => {
@@ -95,7 +130,8 @@ function Todo() {
       )
     )
   }
-
+  // eslint-disable-next-line no-console
+  console.log(todos)
   return (
     <div>
       <TodoTop addTodo={addTodo} editing={editing} />
@@ -110,7 +146,7 @@ function Todo() {
         <TodoItem
           key={todo.id}
           id={todo.id}
-          text={todo.text}
+          text={todo.title}
           confirmTodo={confirmTodo}
           deleteTodo={deleteTodo}
           editing={todo.editing}
