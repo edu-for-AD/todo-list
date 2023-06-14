@@ -6,14 +6,9 @@ import { useSearchParams } from 'react-router-dom'
 
 function Todo() {
   const [todos, setTodos] = useState([])
-
   const [searchParams, setSearchParams] = useSearchParams()
-
   const [filterArchive, setFilterArchive] = useState('all')
-
-  // searchParams.get('filterArchiveStatus')
   const [filterComplete, setFilterComplete] = useState('all')
-  // searchParams.get('filterCompleteStatus')
 
   const editing = todos.some((todo) => todo.editing === true)
 
@@ -148,38 +143,38 @@ function Todo() {
       })
   }
   useEffect(() => {
-    const getArchiveParams = searchParams.get('filterArchiveStatus')
-    const getCompleteParams = searchParams.get('filterCompleteStatus')
-    // eslint-disable-next-line no-console
-    console.log('what ' + getArchiveParams, getCompleteParams)
-
-    if (getArchiveParams === null) {
-      // eslint-disable-next-line no-console
-      console.log('not exist !')
-      // setFilterArchive('all')
-      // setFilterComplete('all')
-      setSearchParams({
-        filterArchiveStatus: 'all',
-        filterCompleteStatus: 'all'
-      })
-    } else if (
-      getArchiveParams !== 'all' &&
-      getArchiveParams !== 'archived' &&
-      getArchiveParams !== 'unarchived'
+    const archiveParams = searchParams.get('filterArchiveStatus')
+    const completeParams = searchParams.get('filterCompleteStatus')
+    if (
+      archiveParams === null ||
+      (archiveParams !== 'all' &&
+        archiveParams !== 'archived' &&
+        archiveParams !== 'unarchived')
     ) {
-      // eslint-disable-next-line no-console
-      console.log('invalid !')
       setSearchParams({
         filterArchiveStatus: 'all',
         filterCompleteStatus: 'all'
       })
-      setFilterArchive(getArchiveParams)
-      setFilterComplete(getCompleteParams)
     } else {
-      // eslint-disable-next-line no-console
-      console.log('valid !')
+      setFilterArchive(archiveParams)
     }
 
+    if (
+      completeParams === null ||
+      (completeParams !== 'all' &&
+        completeParams !== 'completed' &&
+        completeParams !== 'uncompleted')
+    ) {
+      setSearchParams({
+        filterArchiveStatus: 'all',
+        filterCompleteStatus: 'all'
+      })
+    } else {
+      setFilterComplete(completeParams)
+    }
+  }, [searchParams, setSearchParams])
+
+  useEffect(() => {
     fetch(`http://localhost:8080/api/todos`)
       .then((response) => response.json())
       .then((result) => {
@@ -195,8 +190,6 @@ function Todo() {
         setFilterArchive={setFilterArchive}
         filterComplete={filterComplete}
         setFilterComplete={setFilterComplete}
-        // query={query}
-        // setQuery={setQuery}
         searchParams={searchParams}
         setSearchParams={setSearchParams}
       />
