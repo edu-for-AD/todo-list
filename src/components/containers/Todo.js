@@ -7,7 +7,7 @@ function Todo() {
   const [todos, setTodos] = useState([])
 
   const [filterArchive, setFilterArchive] = useState('all')
-  const [filterActivate, setFilterActivate] = useState('all')
+  const [filterComplete, setFilterComplete] = useState('all')
 
   const editing = todos.some((todo) => todo.editing === true)
 
@@ -23,12 +23,12 @@ function Todo() {
       return todos
     })
     .filter((todo) => {
-      if (filterActivate === 'activated') {
-        return !todo.activated
+      if (filterComplete === 'completed') {
+        return todo.completed
       }
 
-      if (filterActivate === 'inactivated') {
-        return todo.activated
+      if (filterComplete === 'uncompleted') {
+        return !todo.completed
       }
       return todos
     })
@@ -36,17 +36,12 @@ function Todo() {
   useEffect(() => {
     fetch(`http://localhost:8080/api/todos`)
       .then((response) => response.json())
-      // eslint-disable-next-line no-console
       .then((result) => {
         setTodos(result.data)
-        // eslint-disable-next-line no-console
-        console.log(result.data)
       })
   }, [])
 
   const addTodo = (todo) => {
-    // setTodos([...todos, todo])
-
     fetch(`http://localhost:8080/api/todos`, {
       method: 'POST',
       headers: {
@@ -56,22 +51,16 @@ function Todo() {
     })
       .then((response) => response.json())
       .then((result) => {
-        // result is { success: boolean, data: created todo item }
-        setTodos([...todos, todo])
-        // eslint-disable-next-line no-console
-        console.log('POST', result)
+        setTodos([...todos, result.data])
       })
   }
 
   const deleteTodo = (id) => {
-    fetch(`http://localhost:8080/api/todos/496`, {
+    fetch(`http://localhost:8080/api/todos/${id}`, {
       method: 'DELETE'
     })
       .then((response) => response.json())
       .then((result) => {
-        // result is { success: boolean, data: deleted todo item }
-        // eslint-disable-next-line no-console
-        console.log('DELETE', result)
         setTodos((prev) => prev.filter((todo) => todo.id !== id))
       })
   }
@@ -92,28 +81,48 @@ function Todo() {
     )
   }
 
-  const changeArchiveStatus = (id) => {
-    setTodos((todos) =>
-      todos.map((todo) => {
-        if (todo.id === id) {
-          return { ...todo, archived: !todo.archived }
-        }
+  const toggleArchiveStatus = (id, archived) => {
+    fetch(`http://localhost:8080/api/todos/${id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ archived: !archived })
+    })
+      .then((response) => response.json())
+      .then((result) => {
+        setTodos((todos) =>
+          todos.map((todo) => {
+            if (todo.id === id) {
+              return { ...todo, archived: !todo.archived }
+            }
 
-        return todo
+            return todo
+          })
+        )
       })
-    )
   }
 
-  const changeActivateStatus = (id) => {
-    setTodos((todos) =>
-      todos.map((todo) => {
-        if (todo.id === id) {
-          return { ...todo, activated: !todo.activated }
-        }
+  const toggleCompleteStatus = (id, completed) => {
+    fetch(`http://localhost:8080/api/todos/${id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ completed: !completed })
+    })
+      .then((response) => response.json())
+      .then((result) => {
+        setTodos((todos) =>
+          todos.map((todo) => {
+            if (todo.id === id) {
+              return { ...todo, completed: !todo.completed }
+            }
 
-        return todo
+            return todo
+          })
+        )
       })
-    )
   }
   const cancelTodo = (id) => {
     setTodos((todos) =>
@@ -122,24 +131,33 @@ function Todo() {
   }
 
   const confirmTodo = (id, textItem) => {
-    setTodos((todos) =>
-      todos.map((todo) =>
-        todo.id === id
-          ? { ...todo, text: textItem, editing: !todo.editing }
-          : todo
-      )
-    )
+    fetch(`http://localhost:8080/api/todos/${id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ title: textItem })
+    })
+      .then((response) => response.json())
+      .then((result) => {
+        setTodos((todos) =>
+          todos.map((todo) =>
+            todo.id === id
+              ? { ...todo, title: textItem, editing: !todo.editing }
+              : todo
+          )
+        )
+      })
   }
-  // eslint-disable-next-line no-console
-  console.log(todos)
+
   return (
     <div>
       <TodoTop addTodo={addTodo} editing={editing} />
       <TodoFilter
         filterArchive={filterArchive}
         setFilterArchive={setFilterArchive}
-        filterActivate={filterActivate}
-        setFilterActivate={setFilterActivate}
+        filterComplete={filterComplete}
+        setFilterComplete={setFilterComplete}
       />
 
       {filterTodos.map((todo) => (
@@ -152,10 +170,10 @@ function Todo() {
           editing={todo.editing}
           cancelTodo={cancelTodo}
           changeEditingStatus={changeEditingStatus}
-          changeArchiveStatus={changeArchiveStatus}
-          changeActivateStatus={changeActivateStatus}
+          toggleArchiveStatus={toggleArchiveStatus}
+          toggleCompleteStatus={toggleCompleteStatus}
           archived={todo.archived}
-          activated={todo.activated}
+          completed={todo.completed}
         />
       ))}
     </div>
