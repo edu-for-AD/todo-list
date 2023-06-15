@@ -53,7 +53,7 @@ function Todo() {
       method: 'DELETE'
     })
       .then((response) => response.json())
-      .then((result) => {
+      .then(() => {
         setTodos((prev) => prev.filter((todo) => todo.id !== id))
       })
   }
@@ -111,7 +111,6 @@ function Todo() {
             if (todo.id === id) {
               return updatedTodo
             }
-
             return todo
           })
         )
@@ -132,13 +131,14 @@ function Todo() {
       body: JSON.stringify({ title: textItem })
     })
       .then((response) => response.json())
-      .then((result) => {
+      .then((updatedTodo) => {
         setTodos((todos) =>
-          todos.map((todo) =>
-            todo.id === id
-              ? { ...todo, title: textItem, editing: !todo.editing }
-              : todo
-          )
+          todos.map((todo) => {
+            if (todo.id === id) {
+              return updatedTodo
+            }
+            return todo
+          })
         )
       })
   }
