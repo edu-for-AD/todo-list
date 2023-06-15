@@ -5,6 +5,7 @@ import TodoFilter from '../presentations/TodoFilter'
 import { useSearchParams } from 'react-router-dom'
 
 function Todo() {
+  const BASEURL = process.env.REACT_APP_BASEURL
   const [todos, setTodos] = useState([])
   const [searchParams, setSearchParams] = useSearchParams()
   const [filterArchive, setFilterArchive] = useState('all')
@@ -35,7 +36,7 @@ function Todo() {
     })
 
   const addTodo = (todo) => {
-    fetch(`http://localhost:8080/api/todos`, {
+    fetch(BASEURL, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -49,7 +50,7 @@ function Todo() {
   }
 
   const deleteTodo = (id) => {
-    fetch(`http://localhost:8080/api/todos/${id}`, {
+    fetch(`${BASEURL}/${id}`, {
       method: 'DELETE'
     })
       .then((response) => response.json())
@@ -75,7 +76,7 @@ function Todo() {
   }
 
   const toggleArchiveStatus = (id, archived) => {
-    fetch(`http://localhost:8080/api/todos/${id}`, {
+    fetch(`${BASEURL}/${id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json'
@@ -89,7 +90,6 @@ function Todo() {
             if (todo.id === id) {
               return updatedTodo
             }
-
             return todo
           })
         )
@@ -97,7 +97,7 @@ function Todo() {
   }
 
   const toggleCompleteStatus = (id, completed) => {
-    fetch(`http://localhost:8080/api/todos/${id}`, {
+    fetch(`${BASEURL}/${id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json'
@@ -123,7 +123,7 @@ function Todo() {
   }
 
   const confirmTodo = (id, textItem) => {
-    fetch(`http://localhost:8080/api/todos/${id}`, {
+    fetch(`${BASEURL}/${id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json'
@@ -175,12 +175,12 @@ function Todo() {
   }, [searchParams, setSearchParams])
 
   useEffect(() => {
-    fetch(`http://localhost:8080/api/todos`)
+    fetch(BASEURL)
       .then((response) => response.json())
       .then((result) => {
         setTodos(result)
       })
-  }, [])
+  }, [BASEURL])
 
   return (
     <div>
