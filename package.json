@@ -14,10 +14,10 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "env-cmd -f .env react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "test:watch": "react-scripts test --watch",
+    "start": "env-cmd -f .env.local react-scripts start",
+    "build": "env-cmd -f .env react-scripts build",
+    "test": "env-cmd -f .env.local react-scripts test",
+    "test:watch": "env-cmd -f .env.local react-scripts test --watch",
     "lint": "eslint src/",
     "lint:fix": "eslint src/ --fix",
     "format": "prettier -c src/",
