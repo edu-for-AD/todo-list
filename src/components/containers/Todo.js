@@ -5,7 +5,6 @@ import TodoFilter from '../presentations/TodoFilter'
 import { useSearchParams } from 'react-router-dom'
 
 function Todo() {
-  const BASEURL = process.env.REACT_APP_BASEURL
   const [todos, setTodos] = useState([])
   const [searchParams, setSearchParams] = useSearchParams()
   const [filterArchive, setFilterArchive] = useState('all')
@@ -36,7 +35,7 @@ function Todo() {
     })
 
   const addTodo = (todo) => {
-    fetch(BASEURL, {
+    fetch(`${process.env.REACT_APP_BASEURL}/todos`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -50,7 +49,7 @@ function Todo() {
   }
 
   const deleteTodo = (id) => {
-    fetch(`${BASEURL}/${id}`, {
+    fetch(`${process.env.REACT_APP_BASEURL}/todos/${id}`, {
       method: 'DELETE'
     })
       .then((response) => response.json())
@@ -76,7 +75,7 @@ function Todo() {
   }
 
   const toggleArchiveStatus = (id, archived) => {
-    fetch(`${BASEURL}/${id}`, {
+    fetch(`${process.env.REACT_APP_BASEURL}/todos/${id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json'
@@ -97,7 +96,7 @@ function Todo() {
   }
 
   const toggleCompleteStatus = (id, completed) => {
-    fetch(`${BASEURL}/${id}`, {
+    fetch(`${process.env.REACT_APP_BASEURL}/todos/${id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json'
@@ -123,7 +122,7 @@ function Todo() {
   }
 
   const confirmTodo = (id, textItem) => {
-    fetch(`${BASEURL}/${id}`, {
+    fetch(`${process.env.REACT_APP_BASEURL}/todos/${id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json'
@@ -175,12 +174,12 @@ function Todo() {
   }, [searchParams, setSearchParams])
 
   useEffect(() => {
-    fetch(BASEURL)
+    fetch(`${process.env.REACT_APP_BASEURL}/todos`)
       .then((response) => response.json())
       .then((result) => {
         setTodos(result)
       })
-  }, [BASEURL])
+  }, [])
 
   return (
     <div>
