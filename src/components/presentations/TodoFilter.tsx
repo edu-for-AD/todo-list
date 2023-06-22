@@ -25,6 +25,7 @@ export const TodoFilter: FC<TodoFilterProps> = ({
       return params
     })
   }
+
   const handleComplete = (event: ChangeEvent<HTMLInputElement>) => {
     setFilterComplete(event.target.value as CompleteTypes)
     setSearchParams((params) => {

@@ -9,6 +9,7 @@ interface TodoTopProps {
 export const TodoTop: FC<TodoTopProps> = ({ addTodo, editing }) => {
   const [todoTitle, setTodoTitle] = useState<string>('')
   const [todoDescription, setTodoDescription] = useState<string>('')
+
   const handleTodoChange = (event: ChangeEvent<HTMLInputElement>) => {
     setTodoTitle(event.target.value)
   }
