@@ -1,6 +1,6 @@
 import TodoItem from '../presentations/TodoItem'
 import TodoTop from '../presentations/TodoTop'
-import TodoFilter from '../presentations/TodoFilter'
+import { TodoFilter } from '../presentations/TodoFilter'
 import { useTodo } from '../containers/useTodo'
 import { useTodoFilter } from '../containers/useTodoFilter'
 

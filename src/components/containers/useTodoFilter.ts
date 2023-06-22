@@ -1,19 +1,8 @@
 import { useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
+import { ArchiveTypes, CompleteTypes } from '../../constants/todo-filter'
 
 import { Todo } from '../../types/todo'
-
-enum ArchiveTypes {
-  ALL = 'all',
-  ARCHIVED = 'archived',
-  UNARCHIVED = 'unarchived'
-}
-
-enum CompleteTypes {
-  ALL = 'all',
-  COMPLETED = 'completed',
-  UNCOMPLETED = 'uncompleted'
-}
 
 export const useTodoFilter = (todos: Todo[]) => {
   const [searchParams, setSearchParams] = useSearchParams()
