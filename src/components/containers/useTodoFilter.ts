@@ -69,7 +69,6 @@ export const useTodoFilter = (todos: Todo[]) => {
   }, [searchParams, setSearchParams])
 
   return {
-    searchParams,
     filterArchive,
     filterComplete,
     editing,

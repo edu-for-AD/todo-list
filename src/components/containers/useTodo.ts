@@ -4,13 +4,13 @@ import { Todo } from '../../types/todo'
 export const useTodo = () => {
   const [todos, setTodos] = useState<Todo[]>([])
 
-  const addTodo = (todo: Todo) => {
+  const addTodo = (title: string, description: string) => {
     fetch(`${process.env.REACT_APP_BASEURL}/todos`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ title: todo.title, description: todo.description })
+      body: JSON.stringify({ title: title, description: description })
     })
       .then((response) => response.json())
       .then((result) => {

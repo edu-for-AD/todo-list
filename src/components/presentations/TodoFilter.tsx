@@ -10,13 +10,6 @@ interface TodoFilterProps {
   setSearchParams: SetURLSearchParams
 }
 
-/*
-1. function -> export const
-2. consumer -> change path
-3. FC<> XXXXXXXProps
-4. solve the complains from the function inside the component.
-*/
-
 export const TodoFilter: FC<TodoFilterProps> = ({
   filterArchive,
   setFilterArchive,
