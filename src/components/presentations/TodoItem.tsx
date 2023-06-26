@@ -17,6 +17,7 @@ interface TodoItemProps {
   ) => void
   archived: boolean
   completed: boolean
+  openModal: any
 }
 
 export const TodoItem: FC<TodoItemProps> = ({
@@ -31,13 +32,19 @@ export const TodoItem: FC<TodoItemProps> = ({
   cancelTodo,
   confirmTodo,
   archived,
-  completed
+  completed,
+  openModal
 }) => {
   const [editingTodo, setEditingTodo] = useState<string>('')
   const [editingDescription, setEditingDescription] = useState<string>('')
 
   const handleArchive = () => {
-    toggleArchiveStatus(id, archived)
+    if (!archived) {
+      openModal(id, 'archive')
+    } else if (archived) {
+      openModal(id, 'unarchive')
+    }
+    // toggleArchiveStatus(id, archived)
   }
 
   const handleConfirm = () => {
@@ -45,7 +52,8 @@ export const TodoItem: FC<TodoItemProps> = ({
   }
 
   const handleDelete = () => {
-    deleteTodo(id)
+    openModal(id, 'delete')
+    // deleteTodo(id)
   }
 
   const handleTitleChange = (event: ChangeEvent<HTMLInputElement>) => {
