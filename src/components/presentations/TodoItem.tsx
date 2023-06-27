@@ -1,13 +1,12 @@
 import { useState, useEffect, FC, ChangeEvent, KeyboardEvent } from 'react'
+import { modalTypes } from '../../constants/modal'
 
 interface TodoItemProps {
   id: number
   title: string
   description: string
-  deleteTodo: (id: number) => void
   editing: boolean
   changeEditingStatus: (id: number) => void
-  toggleArchiveStatus: (id: number, archived: boolean) => void
   toggleCompleteStatus: (id: number, completed: boolean) => void
   cancelTodo: (id: number) => void
   confirmTodo: (
@@ -24,10 +23,8 @@ export const TodoItem: FC<TodoItemProps> = ({
   id,
   title,
   description,
-  deleteTodo,
   editing,
   changeEditingStatus,
-  toggleArchiveStatus,
   toggleCompleteStatus,
   cancelTodo,
   confirmTodo,
@@ -40,11 +37,10 @@ export const TodoItem: FC<TodoItemProps> = ({
 
   const handleArchive = () => {
     if (!archived) {
-      openModal(id, 'archive')
+      openModal(id, modalTypes.ARCHIVE)
     } else if (archived) {
-      openModal(id, 'unarchive')
+      openModal(id, modalTypes.UNARCHIVE)
     }
-    // toggleArchiveStatus(id, archived)
   }
 
   const handleConfirm = () => {
@@ -52,8 +48,7 @@ export const TodoItem: FC<TodoItemProps> = ({
   }
 
   const handleDelete = () => {
-    openModal(id, 'delete')
-    // deleteTodo(id)
+    openModal(id, modalTypes.DELETE)
   }
 
   const handleTitleChange = (event: ChangeEvent<HTMLInputElement>) => {

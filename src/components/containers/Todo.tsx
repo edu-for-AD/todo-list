@@ -4,20 +4,18 @@ import { TodoFilter } from '../presentations/TodoFilter'
 import { useTodo } from '../containers/useTodo'
 import { useTodoFilter } from '../containers/useTodoFilter'
 import { Modal } from '../presentations/Modal'
+import { FC } from 'react'
 
-export const Todo = () => {
+export const Todo: FC = () => {
   const {
     todos,
     addTodo,
-    deleteTodo,
     changeEditingStatus,
-    toggleArchiveStatus,
     toggleCompleteStatus,
     cancelTodo,
     confirmTodo,
-    isOpen,
-    confirmCallback,
-    cancelCallback,
+    confirmModalCallback,
+    cancelModalCallback,
     modalData,
     openModal
   } = useTodo()
@@ -41,7 +39,6 @@ export const Todo = () => {
         setFilterComplete={setFilterComplete}
         setSearchParams={setSearchParams}
       />
-
       {filterTodos.map((todo) => (
         <TodoItem
           key={todo.id}
@@ -49,11 +46,9 @@ export const Todo = () => {
           title={todo.title}
           description={todo.description}
           confirmTodo={confirmTodo}
-          deleteTodo={deleteTodo}
           editing={todo.editing}
           cancelTodo={cancelTodo}
           changeEditingStatus={changeEditingStatus}
-          toggleArchiveStatus={toggleArchiveStatus}
           toggleCompleteStatus={toggleCompleteStatus}
           archived={todo.archived}
           completed={todo.completed}
@@ -61,13 +56,15 @@ export const Todo = () => {
         />
       ))}
 
-      <Modal
-        isOpen={isOpen}
-        title={modalData?.title ?? ''}
-        body={modalData?.body ?? ''}
-        confirmCallback={confirmCallback}
-        cancelCallback={cancelCallback}
-      />
+      {modalData && (
+        <Modal
+          isOpen={modalData.isOpen}
+          title={modalData.title}
+          body={modalData.body}
+          confirmModalCallback={confirmModalCallback}
+          cancelModalCallback={cancelModalCallback}
+        />
+      )}
     </div>
   )
 }

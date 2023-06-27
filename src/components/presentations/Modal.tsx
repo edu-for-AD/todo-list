@@ -4,23 +4,17 @@ interface ModalProps {
   isOpen: boolean
   title: string
   body: string
-  confirmCallback: () => any
-  cancelCallback: () => any
+  confirmModalCallback: () => void
+  cancelModalCallback: () => void
 }
 
 export const Modal: FC<ModalProps> = ({
   isOpen,
   title,
   body,
-  confirmCallback,
-  cancelCallback
+  confirmModalCallback,
+  cancelModalCallback
 }) => {
-  const handleConfirm = () => {
-    confirmCallback()
-  }
-  const handleCancel = () => {
-    cancelCallback()
-  }
   return isOpen ? (
     <div>
       <div className="modal-header">
@@ -28,8 +22,8 @@ export const Modal: FC<ModalProps> = ({
       </div>
       <div className="modal-body">{body}</div>
       <div className="moda-footer">
-        <button onClick={handleConfirm}>CONFIRM</button>
-        <button onClick={handleCancel}>CANCEL</button>
+        <button onClick={() => confirmModalCallback()}>CONFIRM</button>
+        <button onClick={() => cancelModalCallback}>CANCEL</button>
       </div>
     </div>
   ) : null
