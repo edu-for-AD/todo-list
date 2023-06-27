@@ -16,7 +16,7 @@ interface TodoItemProps {
   ) => void
   archived: boolean
   completed: boolean
-  openModal: any
+  openModal: (id: number, type: string) => void
 }
 
 export const TodoItem: FC<TodoItemProps> = ({
@@ -38,7 +38,7 @@ export const TodoItem: FC<TodoItemProps> = ({
   const handleArchive = () => {
     if (!archived) {
       openModal(id, modalTypes.ARCHIVE)
-    } else if (archived) {
+    } else {
       openModal(id, modalTypes.UNARCHIVE)
     }
   }
