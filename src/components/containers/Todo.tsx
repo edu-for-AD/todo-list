@@ -17,7 +17,8 @@ export const Todo: FC = () => {
     confirmModalCallback,
     cancelModalCallback,
     modalData,
-    openModal
+    openModal,
+    isModalOpen
   } = useTodo()
   const {
     filterArchive,
@@ -56,15 +57,13 @@ export const Todo: FC = () => {
         />
       ))}
 
-      {modalData && (
-        <Modal
-          isOpen={modalData.isOpen}
-          title={modalData.title}
-          body={modalData.body}
-          confirmModalCallback={confirmModalCallback}
-          cancelModalCallback={cancelModalCallback}
-        />
-      )}
+      <Modal
+        isOpen={isModalOpen}
+        title={modalData?.title}
+        body={modalData?.body}
+        confirmModalCallback={confirmModalCallback}
+        cancelModalCallback={cancelModalCallback}
+      />
     </div>
   )
 }

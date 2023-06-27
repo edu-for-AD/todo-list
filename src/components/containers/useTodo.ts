@@ -5,8 +5,8 @@ import { Todo } from '../../types/todo'
 
 export const useTodo = () => {
   const [todos, setTodos] = useState<Todo[]>([])
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
   const [modalData, setModalData] = useState<{
-    isOpen: boolean
     id: number
     type: string
     title: string
@@ -49,37 +49,39 @@ export const useTodo = () => {
       deleteTodo(modalData.id)
     }
     setModalData(null)
+    setIsModalOpen(false)
   }
 
   const cancelModalCallback = () => {
     setModalData(null)
+    setIsModalOpen(false)
   }
 
   const openModal = (id: number, type: string) => {
     if (type === modalTypes.ARCHIVE) {
       setModalData({
-        isOpen: true,
         id: id,
         type: type,
         title: 'Archive',
         body: 'Are you sure you want to archive? '
       })
+      setIsModalOpen(true)
     } else if (type === modalTypes.UNARCHIVE) {
       setModalData({
-        isOpen: true,
         id: id,
         type: type,
         title: 'Unarchive',
         body: 'Are you sure you want to unarchive? '
       })
+      setIsModalOpen(true)
     } else if (type === modalTypes.DELETE) {
       setModalData({
-        isOpen: true,
         id: id,
         type: type,
         title: 'Delete',
         body: 'Are you sure you want to delete? '
       })
+      setIsModalOpen(true)
     }
   }
 
@@ -156,6 +158,7 @@ export const useTodo = () => {
     confirmModalCallback,
     cancelModalCallback,
     modalData,
-    openModal
+    openModal,
+    isModalOpen
   }
 }
