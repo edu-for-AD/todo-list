@@ -41,14 +41,24 @@ export const useTodo = () => {
   }
 
   const confirmModalCallback = () => {
-    if (modalData?.type === modalTypes.ARCHIVE) {
-      changeArchiveStatus(modalData.id, false)
-    } else if (modalData?.type === modalTypes.UNARCHIVE) {
-      changeArchiveStatus(modalData.id, true)
-    } else if (modalData?.type === modalTypes.DELETE) {
-      deleteTodo(modalData.id)
+    try {
+      if (modalData?.type === modalTypes.ARCHIVE) {
+        changeArchiveStatus(modalData.id, false)
+      } else if (modalData?.type === modalTypes.UNARCHIVE) {
+        changeArchiveStatus(modalData.id, true)
+      } else if (modalData?.type === modalTypes.DELETE) {
+        deleteTodo(modalData.id)
+      }
+      setModalData(null)
+    } catch {
+      setModalData({
+        isOpen: true,
+        id: 999,
+        type: 'ERROR',
+        title: 'error',
+        body: 'error !'
+      })
     }
-    setModalData(null)
   }
 
   const cancelModalCallback = () => {
