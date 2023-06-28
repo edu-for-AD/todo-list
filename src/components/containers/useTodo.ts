@@ -23,6 +23,7 @@ export const useTodo = () => {
     todoHttpReqHandler.delete(id).then(() => {
       setTodos((prev) => prev.filter((todo) => todo.id !== id))
     })
+    return 1
   }
 
   const changeArchiveStatus = (id: number, archived: boolean) => {
@@ -41,24 +42,17 @@ export const useTodo = () => {
   }
 
   const confirmModalCallback = () => {
-    try {
-      if (modalData?.type === modalTypes.ARCHIVE) {
-        changeArchiveStatus(modalData.id, false)
-      } else if (modalData?.type === modalTypes.UNARCHIVE) {
-        changeArchiveStatus(modalData.id, true)
-      } else if (modalData?.type === modalTypes.DELETE) {
-        deleteTodo(modalData.id)
+    if (modalData?.type === modalTypes.ARCHIVE) {
+      changeArchiveStatus(modalData.id, false)
+    } else if (modalData?.type === modalTypes.UNARCHIVE) {
+      changeArchiveStatus(modalData.id, true)
+    } else if (modalData?.type === modalTypes.DELETE) {
+      if (deleteTodo(modalData.id)) {
+        setModalData(null)
+      } else {
       }
-      setModalData(null)
-    } catch {
-      setModalData({
-        isOpen: true,
-        id: 999,
-        type: 'ERROR',
-        title: 'error',
-        body: 'error !'
-      })
     }
+    setModalData(null)
   }
 
   const cancelModalCallback = () => {
