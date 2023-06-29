@@ -86,6 +86,14 @@ export const useTodo = () => {
         body: 'Are you sure you want to delete? '
       })
       setIsModalOpen(true)
+    } else if (type === modalTypes.EDIT) {
+      setModalData({
+        id: id,
+        type: type,
+        title: 'EDIT',
+        body: ''
+      })
+      setIsModalOpen(true)
     }
   }
 
@@ -103,6 +111,7 @@ export const useTodo = () => {
         return todo
       })
     )
+    openModal(id, modalTypes.EDIT)
   }
 
   const toggleCompleteStatus = (id: number, completed: boolean) => {

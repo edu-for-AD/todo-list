@@ -7,6 +7,7 @@ interface ModalProps {
   body?: string
   confirmModalCallback?: () => void
   cancelModalCallback?: () => void
+  editing: boolean
 }
 
 export const Modal: FC<ModalProps> = ({
@@ -14,7 +15,8 @@ export const Modal: FC<ModalProps> = ({
   title,
   body,
   confirmModalCallback,
-  cancelModalCallback
+  cancelModalCallback,
+  editing
 }) => {
   const closeModal = () => {
     if (typeof cancelModalCallback === 'function') {
@@ -27,7 +29,15 @@ export const Modal: FC<ModalProps> = ({
         <div className="modal-header">
           <h1 className="modal-title">{title ?? ''}</h1>
         </div>
-        <div className="modal-body">{body ?? ''}</div>
+        <div className="modal-body">
+          {body ?? ''}
+          {editing && (
+            <>
+              <input type="text" value={'title'} />
+              <input type="text" value={'Description'} />
+            </>
+          )}
+        </div>
         <div className="moda-footer">
           <button
             onClick={() => {

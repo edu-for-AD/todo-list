@@ -64,6 +64,7 @@ export const Todo: FC = () => {
           body={modalData?.body}
           confirmModalCallback={confirmModalCallback}
           cancelModalCallback={cancelModalCallback}
+          editing={editing}
         />
       )}
     </div>
