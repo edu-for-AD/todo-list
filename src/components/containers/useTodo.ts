@@ -126,12 +126,12 @@ export const useTodo = () => {
     )
   }
 
-  const confirmTodo = (
+  const confirmTodo = async (
     id: number,
     editingTodo: string,
     editingDescription: string
   ) => {
-    todoHttpReqHandler
+    return todoHttpReqHandler
       .update(id, { title: editingTodo, description: editingDescription })
       .then((updatedTodo) => {
         setTodos((todos) =>
