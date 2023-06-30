@@ -12,7 +12,6 @@ export const useTodoFilter = (todos: Todo[]) => {
   const [filterComplete, setFilterComplete] = useState<CompleteTypes>(
     CompleteTypes.ALL
   )
-  const editing = todos.some((todo) => todo.editing === true)
   const filterTodos = todos
     .filter((todo) => {
       if (filterArchive === ArchiveTypes.ARCHIVED) {
@@ -71,7 +70,6 @@ export const useTodoFilter = (todos: Todo[]) => {
   return {
     filterArchive,
     filterComplete,
-    editing,
     filterTodos,
     setFilterArchive,
     setFilterComplete,

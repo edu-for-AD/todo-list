@@ -13,6 +13,7 @@ export const useTodo = () => {
     body: string
   } | null>(null)
 
+  const editing = todos.some((todo) => todo.editing === true)
   const addTodo = (title: string, description: string) => {
     todoHttpReqHandler.add(title, description).then((todo) => {
       setTodos([...todos, todo])
@@ -59,6 +60,8 @@ export const useTodo = () => {
   const cancelModalCallback = () => {
     setModalData(null)
     setIsModalOpen(false)
+
+    todos.map((todo) => (todo.editing = false))
   }
 
   const openModal = (id: number, type: string) => {
@@ -170,6 +173,7 @@ export const useTodo = () => {
     confirmTodo,
     confirmModalCallback,
     cancelModalCallback,
+    editing,
     modalData,
     openModal,
     isModalOpen

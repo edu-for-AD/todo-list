@@ -4,10 +4,9 @@ import './Modal.css'
 interface ModalProps {
   isOpen: boolean
   title?: string
-  body?: string
+  body?: JSX.Element
   confirmModalCallback?: () => void
   cancelModalCallback?: () => void
-  editing: boolean
 }
 
 export const Modal: FC<ModalProps> = ({
@@ -15,29 +14,23 @@ export const Modal: FC<ModalProps> = ({
   title,
   body,
   confirmModalCallback,
-  cancelModalCallback,
-  editing
+  cancelModalCallback
 }) => {
   const closeModal = () => {
     if (typeof cancelModalCallback === 'function') {
       cancelModalCallback()
     }
   }
+  const stopPropagation = (event: React.MouseEvent<HTMLDivElement>) => {
+    event.stopPropagation()
+  }
   return isOpen ? (
     <div className="modal" onClick={closeModal}>
-      <div className="modal-content">
+      <div className="modal-content" onClick={stopPropagation}>
         <div className="modal-header">
           <h1 className="modal-title">{title ?? ''}</h1>
         </div>
-        <div className="modal-body">
-          {body ?? ''}
-          {editing && (
-            <>
-              <input type="text" value={'title'} />
-              <input type="text" value={'Description'} />
-            </>
-          )}
-        </div>
+        <div className="modal-body">{body ?? ''}</div>
         <div className="moda-footer">
           <button
             onClick={() => {

@@ -16,6 +16,8 @@ export const Todo: FC = () => {
     confirmTodo,
     confirmModalCallback,
     cancelModalCallback,
+
+    editing,
     modalData,
     openModal,
     isModalOpen
@@ -23,7 +25,6 @@ export const Todo: FC = () => {
   const {
     filterArchive,
     filterComplete,
-    editing,
     filterTodos,
     setFilterArchive,
     setFilterComplete,
@@ -60,11 +61,26 @@ export const Todo: FC = () => {
       {modalData && (
         <Modal
           isOpen={isModalOpen}
-          title={modalData?.title}
-          body={modalData?.body}
+          title={modalData.title}
+          body={
+            editing ? (
+              <>
+                <label>
+                  title
+                  <input type="text" />
+                </label>
+
+                <label>
+                  description
+                  <input type="text" />
+                </label>
+              </>
+            ) : (
+              <p>{modalData.body}</p>
+            )
+          }
           confirmModalCallback={confirmModalCallback}
           cancelModalCallback={cancelModalCallback}
-          editing={editing}
         />
       )}
     </div>

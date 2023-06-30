@@ -88,57 +88,27 @@ export const TodoItem: FC<TodoItemProps> = ({
 
   return (
     <div style={{ display: 'flex', width: '100%' }}>
-      {editing ? (
-        <div>
-          <input
-            type="text"
-            value={editingTodo}
-            onChange={handleTitleChange}
-            onKeyDown={handleKeyDown}
-          />
-          <input
-            type="text"
-            value={editingDescription}
-            onChange={handleDescriptionChange}
-            onKeyDown={handleKeyDown}
-          />
+      <>
+        <input type="checkbox" checked={completed} onChange={handleComplete} />
+        <div
+          style={{
+            textDecoration: completed ? 'line-through' : '',
+            opacity: archived ? '0.3' : ''
+          }}
+        >
+          {title} - {description}
         </div>
-      ) : (
-        <>
-          <input
-            type="checkbox"
-            checked={completed}
-            onChange={handleComplete}
-          />
-          <div
-            style={{
-              textDecoration: completed ? 'line-through' : '',
-              opacity: archived ? '0.3' : ''
-            }}
-          >
-            {title} - {description}
-          </div>
-        </>
-      )}
+      </>
 
-      {!archived && !editing && (
+      {!archived && (
         <button onClick={() => changeEditingStatus(id)}>edit</button>
       )}
 
-      {!editing && (
-        <button onClick={handleArchive}>
-          {!archived ? 'archive' : 'unarchive'}
-        </button>
-      )}
+      <button onClick={handleArchive}>
+        {!archived ? 'archive' : 'unarchive'}
+      </button>
 
       {archived && <button onClick={handleDelete}>delete</button>}
-
-      {editing && (
-        <>
-          <button onClick={handleConfirm}>confirm</button>
-          <button onClick={() => cancelTodo(id)}>cancel</button>
-        </>
-      )}
     </div>
   )
 }
