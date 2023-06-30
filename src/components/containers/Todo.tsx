@@ -65,6 +65,7 @@ export const Todo: FC = () => {
           body={
             editing ? (
               <>
+                <p>{modalData.body}</p>
                 <label>
                   title
                   <input type="text" />

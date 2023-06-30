@@ -49,6 +49,9 @@ export const useTodo = () => {
         await changeArchiveStatus(modalData.id, true)
       } else if (modalData?.type === modalTypes.DELETE) {
         await deleteTodo(modalData.id)
+      } else if (modalData?.type === modalTypes.EDIT) {
+        console.log('Editing !')
+        todos.map((todo) => (todo.editing = false))
       }
       setModalData(null)
       setIsModalOpen(false)
@@ -94,7 +97,7 @@ export const useTodo = () => {
         id: id,
         type: type,
         title: 'EDIT',
-        body: ''
+        body: 'Are you sure you want to edit? '
       })
       setIsModalOpen(true)
     }
