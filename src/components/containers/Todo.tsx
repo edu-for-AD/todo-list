@@ -16,8 +16,11 @@ export const Todo: FC = () => {
     confirmTodo,
     confirmModalCallback,
     cancelModalCallback,
-
     editing,
+    editingTodo,
+    setEditingTodo,
+    editingDescription,
+    setEditingDescription,
     modalData,
     openModal,
     isModalOpen
@@ -49,6 +52,10 @@ export const Todo: FC = () => {
           description={todo.description}
           confirmTodo={confirmTodo}
           editing={todo.editing}
+          editingTodo={editingTodo}
+          setEditingTodo={setEditingTodo}
+          editingDescription={editingDescription}
+          setEditingDescription={setEditingDescription}
           cancelTodo={cancelTodo}
           changeEditingStatus={changeEditingStatus}
           toggleCompleteStatus={toggleCompleteStatus}
@@ -68,12 +75,24 @@ export const Todo: FC = () => {
                 <p>{modalData.body}</p>
                 <label>
                   title
-                  <input type="text" />
+                  <input
+                    type="text"
+                    value={editingTodo}
+                    onChange={(event) => {
+                      setEditingTodo(event.target.value)
+                    }}
+                  />
                 </label>
 
                 <label>
                   description
-                  <input type="text" />
+                  <input
+                    type="text"
+                    value={editingDescription}
+                    onChange={(event) =>
+                      setEditingDescription(event.target.value)
+                    }
+                  />
                 </label>
               </>
             ) : (

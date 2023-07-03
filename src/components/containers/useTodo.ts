@@ -5,6 +5,8 @@ import { Todo } from '../../types/todo'
 
 export const useTodo = () => {
   const [todos, setTodos] = useState<Todo[]>([])
+  const [editingTodo, setEditingTodo] = useState<string>('')
+  const [editingDescription, setEditingDescription] = useState<string>('')
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
   const [modalData, setModalData] = useState<{
     id: number
@@ -41,6 +43,43 @@ export const useTodo = () => {
       })
   }
 
+  const changeEditingStatus = (id: number) => {
+    setTodos((todos) =>
+      todos.map((todo) => {
+        if (todo.id === id) {
+          return { ...todo, editing: !todo.editing }
+        }
+
+        if (todo.editing === true) {
+          return { ...todo, editing: false }
+        }
+
+        return todo
+      })
+    )
+    openModal(id, modalTypes.EDIT)
+  }
+
+  const confirmTodo = async (
+    id: number,
+    editingTodo: string,
+    editingDescription: string
+  ) => {
+    return todoHttpReqHandler
+      .update(id, { title: editingTodo, description: editingDescription })
+      .then((updatedTodo) => {
+        setTodos((todos) =>
+          todos.map((todo) => {
+            if (todo.id === id) {
+              return updatedTodo
+            }
+
+            return todo
+          })
+        )
+      })
+  }
+
   const confirmModalCallback = async () => {
     try {
       if (modalData?.type === modalTypes.ARCHIVE) {
@@ -50,7 +89,7 @@ export const useTodo = () => {
       } else if (modalData?.type === modalTypes.DELETE) {
         await deleteTodo(modalData.id)
       } else if (modalData?.type === modalTypes.EDIT) {
-        console.log('Editing !')
+        confirmTodo(modalData.id, editingTodo, editingDescription)
         todos.map((todo) => (todo.editing = false))
       }
       setModalData(null)
@@ -103,23 +142,6 @@ export const useTodo = () => {
     }
   }
 
-  const changeEditingStatus = (id: number) => {
-    setTodos((todos) =>
-      todos.map((todo) => {
-        if (todo.id === id) {
-          return { ...todo, editing: !todo.editing }
-        }
-
-        if (todo.editing === true) {
-          return { ...todo, editing: false }
-        }
-
-        return todo
-      })
-    )
-    openModal(id, modalTypes.EDIT)
-  }
-
   const toggleCompleteStatus = (id: number, completed: boolean) => {
     todoHttpReqHandler
       .update(id, { completed: !completed })
@@ -141,26 +163,6 @@ export const useTodo = () => {
     )
   }
 
-  const confirmTodo = async (
-    id: number,
-    editingTodo: string,
-    editingDescription: string
-  ) => {
-    return todoHttpReqHandler
-      .update(id, { title: editingTodo, description: editingDescription })
-      .then((updatedTodo) => {
-        setTodos((todos) =>
-          todos.map((todo) => {
-            if (todo.id === id) {
-              return updatedTodo
-            }
-
-            return todo
-          })
-        )
-      })
-  }
-
   useEffect(() => {
     todoHttpReqHandler.getAll().then((result) => {
       setTodos(result)
@@ -177,6 +179,10 @@ export const useTodo = () => {
     confirmModalCallback,
     cancelModalCallback,
     editing,
+    editingTodo,
+    setEditingTodo,
+    editingDescription,
+    setEditingDescription,
     modalData,
     openModal,
     isModalOpen

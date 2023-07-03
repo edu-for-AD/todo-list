@@ -1,4 +1,4 @@
-import { useState, useEffect, FC, ChangeEvent, KeyboardEvent } from 'react'
+import { useEffect, FC, ChangeEvent, KeyboardEvent, Dispatch } from 'react'
 import { modalTypes } from '../../constants/modal'
 
 interface TodoItemProps {
@@ -6,6 +6,10 @@ interface TodoItemProps {
   title: string
   description: string
   editing: boolean
+  editingTodo: string
+  setEditingTodo: Dispatch<React.SetStateAction<string>>
+  editingDescription: string
+  setEditingDescription: Dispatch<React.SetStateAction<string>>
   changeEditingStatus: (id: number) => void
   toggleCompleteStatus: (id: number, completed: boolean) => void
   cancelTodo: (id: number) => void
@@ -24,6 +28,10 @@ export const TodoItem: FC<TodoItemProps> = ({
   title,
   description,
   editing,
+  editingTodo,
+  setEditingTodo,
+  editingDescription,
+  setEditingDescription,
   changeEditingStatus,
   toggleCompleteStatus,
   cancelTodo,
@@ -32,9 +40,6 @@ export const TodoItem: FC<TodoItemProps> = ({
   completed,
   openModal
 }) => {
-  const [editingTodo, setEditingTodo] = useState<string>('')
-  const [editingDescription, setEditingDescription] = useState<string>('')
-
   const handleArchive = () => {
     if (!archived) {
       openModal(id, modalTypes.ARCHIVE)
