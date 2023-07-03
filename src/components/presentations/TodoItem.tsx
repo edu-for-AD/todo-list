@@ -32,14 +32,18 @@ export const TodoItem: FC<TodoItemProps> = ({
   setEditingTodo,
   editingDescription,
   setEditingDescription,
-  changeEditingStatus,
-  toggleCompleteStatus,
   cancelTodo,
   confirmTodo,
+  changeEditingStatus,
+  toggleCompleteStatus,
   archived,
   completed,
   openModal
 }) => {
+  const handleComplete = () => {
+    toggleCompleteStatus(id, completed)
+  }
+
   const handleArchive = () => {
     if (!archived) {
       openModal(id, modalTypes.ARCHIVE)
@@ -62,10 +66,6 @@ export const TodoItem: FC<TodoItemProps> = ({
 
   const handleDescriptionChange = (event: ChangeEvent<HTMLInputElement>) => {
     setEditingDescription(event.target.value)
-  }
-
-  const handleComplete = () => {
-    toggleCompleteStatus(id, completed)
   }
 
   const handleKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {

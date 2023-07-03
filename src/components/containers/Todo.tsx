@@ -25,6 +25,7 @@ export const Todo: FC = () => {
     openModal,
     isModalOpen
   } = useTodo()
+
   const {
     filterArchive,
     filterComplete,
@@ -50,13 +51,13 @@ export const Todo: FC = () => {
           id={todo.id}
           title={todo.title}
           description={todo.description}
-          confirmTodo={confirmTodo}
           editing={todo.editing}
           editingTodo={editingTodo}
           setEditingTodo={setEditingTodo}
           editingDescription={editingDescription}
           setEditingDescription={setEditingDescription}
           cancelTodo={cancelTodo}
+          confirmTodo={confirmTodo}
           changeEditingStatus={changeEditingStatus}
           toggleCompleteStatus={toggleCompleteStatus}
           archived={todo.archived}
@@ -64,7 +65,6 @@ export const Todo: FC = () => {
           openModal={openModal}
         />
       ))}
-
       {modalData && (
         <Modal
           isOpen={isModalOpen}

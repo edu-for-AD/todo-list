@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { ArchiveTypes, CompleteTypes } from '../../constants/todo-filter'
-
 import { Todo } from '../../types/todo'
 
 export const useTodoFilter = (todos: Todo[]) => {
